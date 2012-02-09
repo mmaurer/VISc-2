@@ -1,0 +1,54 @@
+ <!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+   <file>resource/visc.png</file>
+   
+   <file>resource/splash.png</file>
+   <file>resource/volumes.png</file>
+   <file>resource/volume.png</file>
+   <file>resource/lights.png</file>
+   <file>resource/omniLight.png</file>
+   <file>resource/directionalLight.png</file>
+   <file>resource/spotLight.png</file>
+
+   <file>resource/dvr.png</file>
+   <file>resource/texture.png</file>
+   <file>resource/wireframe.png</file>
+
+   <file>resource/rightPanel.png</file>
+   <file>resource/leftPanel.png</file>
+   <file>resource/messageBox.png</file>
+
+   <file>resource/volumeProperties.png</file>
+   <file>resource/lightProperties.png</file>
+   <file>resource/viewProperties.png</file>
+
+   <file>resource/loadVolume.png</file>
+   <file>resource/removeLight.png</file>
+   <file>resource/removeVolume.png</file>
+
+   <file>resource/chooseTransferWidget.png</file>
+   <file>resource/loadTransferFunction.png</file>
+   <file>resource/saveTransferFunction.png</file>
+   <file>resource/zeroTransferFunction.png</file>
+   <file>resource/resetTransferFunction.png</file>
+
+   <file>resource/error.png</file>
+   <file>resource/warning.png</file>
+   <file>resource/info.png</file>
+   <file>resource/clearAll.png</file>
+
+   <file>resource/resetView.png</file>
+   <file>resource/zoomIn.png</file>
+   <file>resource/zoomAll.png</file>
+   <file>resource/rotate.png</file>
+   <file>resource/translate.png</file>
+   <file>resource/saveScreenshot.png</file>
+
+   <file>resource/about.png</file>
+   <file>resource/aboutQt.png</file>
+   <file>resource/exit.png</file>
+ 
+  <!-- Zoom Style Lines -->
+   <file>resource/zoomStyleDashed.png</file>
+ </qresource>
+ </RCC>
