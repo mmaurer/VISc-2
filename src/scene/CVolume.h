@@ -22,6 +22,7 @@
 #include "../visc.h"
 #include "../algebra/CVector.h"
 #include "CVolumeProperties.h"
+#include "CSceneObject.h"
 
 #if defined(WIN32) && defined(_DEBUG)
 #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
@@ -94,7 +95,6 @@ class CVolume
 	private:
 		int width, height, depth, c;
 		int maxvalue;
-		//char *data;
       QScopedArrayPointer<char> data;
 		QColor color;
 		double aspectRatio[3];
@@ -107,6 +107,60 @@ class CVolume
 
 		// Methods
 		int stackToNumber(QStack<int> &stack);
+};
+
+class CVolume_ : public CSceneObject
+{
+public:
+   CVolume_();
+   CVolume_(int width, int height, int depth, int numComponents);
+   CVolume_ (CVolume_ &volume);
+   CVolume_ &operator= (CVolume_ &volume);
+   ~CVolume_();
+
+   virtual void render();
+   virtual void properties();
+   virtual void getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd);
+
+   float getVoxel(int pos) const;
+   float getVoxel(int x, int y, int z) const;
+   float getVoxel(int x, int y, int z, int component) const;
+   float getVoxel(QVector3D &position) const;
+   float getVoxelInterpolated(double x, double y, double z) const;
+   void setVoxel(int pos, float value);
+   void setVoxel(int x, int y, int z, float value);
+   void setVoxel(int x, int y, int z, int component, float value);
+
+   CVolume_ resize(float sx, float sy, float sz, VISc::EInterpolation interpolationMode);
+
+   long size() const { return (m_width * m_height * m_depth); }
+   long totalVoxels() const { return (size() * m_numComponents); }
+   long sizeInBytes() const { return (totalVoxels() * sizeof(float)); }
+   int getWidth() const { return m_width; }
+   int getHeight() const { return m_height; }
+   int getDepth() const { return m_depth; }
+   int getNumberOfComponents() const { return m_numComponents; }
+   QColor getColor() const { return m_qcColor; }
+   void setColor(QColor color) { m_qcColor = color; }
+   QVector4D getPosition() const { return m_position; }
+   void setPosition(QVector4D position) { m_position = position; }
+   const float *getData() const { return m_data.data(); }
+   float *getData() { return m_data.data(); }
+
+protected:
+   int coordinatesToPosition(int x, int y, int z) const
+   {
+      return ((x + (y * m_width) + (z * m_width * m_height)) * m_numComponents);
+   }
+
+   int m_width;
+   int m_height;
+   int m_depth;
+   int m_numComponents;
+   QColor m_qcColor;
+   double m_aspectRatio[3];
+   QVector4D m_position;
+   QScopedArrayPointer<float> m_data;
 };
 
 #endif

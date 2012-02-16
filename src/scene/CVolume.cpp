@@ -536,3 +536,288 @@ double CVolume::getVoxelInterpolated(double x, double y, double z)
 
    return floor( (w1 * (1 - xd) + w2 * xd) + 0.5 );
 }
+
+
+
+
+// *************************************************************************************
+CVolume_::CVolume_() :
+m_width(0),
+m_height(0),
+m_depth(0),
+m_numComponents(1),
+m_qcColor(0,0,0),
+m_position(0.0, 0.0, 0.0, 0.0)
+{
+   std::memset(m_aspectRatio, 0, sizeof(double) * 3);
+}
+
+CVolume_::CVolume_(int width, int height, int depth, int numComponents) :
+m_width(width),
+m_height(height),
+m_depth(depth),
+m_numComponents(numComponents),
+m_qcColor(0,0,0),
+m_position(0.0, 0.0, 0.0, 0.0)
+{
+   std::memset(m_aspectRatio, 0, sizeof(double) * 3);
+
+   // Initialize the voxels
+   m_data.reset( new float[totalVoxels()] );
+   std::memset(m_data.data(), 0, sizeInBytes());
+}
+
+CVolume_::CVolume_ (CVolume_ &volume)
+{
+   *this = volume;
+}
+
+CVolume_ & CVolume_::operator= (CVolume_ &volume)
+{
+   if (&volume != this)
+   {
+      m_width = volume.m_width;
+      m_height = volume.m_height;
+      m_depth = volume.m_height;
+      m_numComponents = volume.m_numComponents;
+      m_qcColor = volume.m_qcColor;
+      m_position = volume.m_position;
+      m_bEnabled = volume.m_bEnabled;
+      m_qsName = volume.m_qsName + " Copy";
+      m_qdtTimeStamp = QDateTime::currentDateTime();
+
+      // Copy the aspect ratio array
+      std::memcpy(m_aspectRatio, volume.m_aspectRatio, sizeof(double) * 3);
+
+      // Copy the voxels
+      m_data.reset( new float[totalVoxels()] );
+      std::memcpy(m_data.data(), volume.m_data.data(), sizeInBytes());
+   }
+
+   return *this;
+}
+
+CVolume_::~CVolume_()
+{
+   m_data.reset( NULL );
+}
+
+void CVolume_::render()
+{
+   glPushMatrix();
+   glTranslatef(-m_width / 2.0, -m_height / 2.0, -m_depth / 2.0);
+   glScalef(m_aspectRatio[VISc::dX], m_aspectRatio[VISc::dY],m_aspectRatio[VISc::dZ]);
+   glTranslatef(m_position.x(), m_position.y(), m_position.z());
+
+   glColor3f(m_qcColor.redF(), m_qcColor.greenF(), m_qcColor.blueF());
+   glBegin(GL_LINES);
+
+   // Front icon
+   glVertex3f(getWidth() * 0.7, getHeight() * 0.2, 0);
+   glVertex3f(getWidth() * 0.7, getHeight() * 0.8, 0);
+   glVertex3f(getWidth() * 0.7, getHeight() * 0.8, 0);
+   glVertex3f(getWidth() * 0.3, getHeight() * 0.8, 0);
+   glVertex3f(getWidth() * 0.7, getHeight() * 0.6, 0);
+   glVertex3f(getWidth() * 0.3, getHeight() * 0.6, 0);
+
+   // Front face
+   glVertex3f(0, 0, 0);
+   glVertex3f(getWidth(), 0, 0);
+   glVertex3f(getWidth(), 0, 0);
+   glVertex3f(getWidth(), getHeight(), 0);
+   glVertex3f(getWidth(), getHeight(), 0);
+   glVertex3f(0, getHeight(), 0);
+   glVertex3f(0, getHeight(), 0);
+   glVertex3f(0, 0, 0);
+
+   // Left face
+   glVertex3f(0, 0, 0);
+   glVertex3f(0, 0, getDepth());
+   glVertex3f(0, 0, getDepth());
+   glVertex3f(0, getHeight(), getDepth());
+   glVertex3f(0, getHeight(), getDepth());
+   glVertex3f(0, getHeight(), 0);
+
+   // Bottom face
+   glVertex3f(getWidth(), 0, 0);
+   glVertex3f(getWidth(), 0, getDepth());
+   glVertex3f(getWidth(), 0, getDepth());
+   glVertex3f(0, 0, getDepth());
+
+   // Right face
+   glVertex3f(getWidth(), getHeight(), 0);
+   glVertex3f(getWidth(), getHeight(), getDepth());
+   glVertex3f(getWidth(), getHeight(), getDepth());
+   glVertex3f(getWidth(), 0, getDepth());
+
+   // Hinder face
+   glVertex3f(0, getHeight(), getDepth());
+   glVertex3f(getWidth(), getHeight(), getDepth());
+   glEnd();
+   glPopMatrix();
+}
+
+void CVolume_::properties()
+{
+   // CVolumeProperties vproperties(this);
+   // vproperties.show();
+}
+
+void CVolume_::getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd)
+{
+   mw = m_position.x() - (m_width / 2.0);
+   pw = m_position.x() + (m_width / 2.0);
+   mh = m_position.y() - (m_height / 2.0);
+   ph = m_position.y() - (m_height / 2.0);
+   md = m_position.z() - (m_depth / 2.0);
+   pd = m_position.z() - (m_depth / 2.0);
+}
+
+float CVolume_::getVoxel(int pos) const
+{
+   if ((pos < 0) || (pos >= size()))
+      return 0.0f;
+
+   return m_data.data()[pos];
+}
+
+float CVolume_::getVoxel(int x, int y, int z) const
+{
+   if ((x < 0) || (x >= m_width))
+      return 0.0f;
+   if ((y < 0) || (y >= m_height))
+      return 0.0f;
+   if ((z < 0) || (z >= m_depth))
+      return 0.0f;
+
+   return getVoxel(coordinatesToPosition(x, y, z));
+}
+
+float CVolume_::getVoxel(int x, int y, int z, int component) const
+{
+   if ((x < 0) || (x >= m_width))
+      return 0.0f;
+   if ((y < 0) || (y >= m_height))
+      return 0.0f;
+   if ((z < 0) || (z >= m_depth))
+      return 0.0f;
+
+   return m_data.data()[coordinatesToPosition(x, y, z) + component];
+}
+
+float CVolume_::getVoxel(QVector3D &position) const
+{
+   return getVoxel(position.x(), position.y(), position.z());
+}
+
+float CVolume_::getVoxelInterpolated(double x, double y, double z) const
+{
+   double xd, yd, zd;
+   double xc, yc, zc;
+   double xf, yf, zf;
+
+   xd = x - floor( x );
+   yd = y - floor( y );
+   zd = z - floor( z );
+
+   xf = floor( x );
+   yf = floor( y );
+   zf = floor( z );
+
+   xc = ceil( x );
+   yc = ceil( y );
+   zc = ceil( z );
+
+   float i1 = getVoxel(int(xf), int(yf), int(zf)) * (1 - zd) + getVoxel(int(xf), int(yf), int(zc)) * zd;
+   float i2 = getVoxel(int(xf), int(yc), int(zf)) * (1 - zd) + getVoxel(int(xf), int(yc), int(zc)) * zd;
+   float j1 = getVoxel(int(xc), int(yf), int(zf)) * (1 - zd) + getVoxel(int(xc), int(yf), int(zc)) * zd;
+   float j2 = getVoxel(int(xc), int(yc), int(zf)) * (1 - zd) + getVoxel(int(xc), int(yc), int(zc)) * zd;
+
+   float w1 = i1 * (1 - yd) + i2 * yd;
+   float w2 = j1 * (1 - yd) + j2 * yd;
+
+   return floor( (w1 * (1 - xd) + w2 * xd) + 0.5 );
+}
+
+void CVolume_::setVoxel(int pos, float value)
+{
+   if ((pos < 0) || (pos >= size()))
+      return;
+
+   m_data.data()[pos] = value;
+}
+
+void CVolume_::setVoxel(int x, int y, int z, float value)
+{
+   if ((x < 0) || (x >= m_width))
+      return;
+   if ((y < 0) || (y >= m_height))
+      return;
+   if ((z < 0) || (z >= m_depth))
+      return;
+
+   setVoxel(coordinatesToPosition(x, y, z), value);
+}
+
+void CVolume_::setVoxel(int x, int y, int z, int component, float value)
+{
+   if (x < 0 || x >= m_width)
+      return;
+   if (y < 0 || y >= m_height)
+      return;
+   if (z < 0 || z >= m_depth)
+      return;
+   
+   int pos = coordinatesToPosition(x, y, z);
+   pos += component;
+   m_data.data()[pos] = value;
+}
+
+CVolume_ CVolume_::resize(float sx, float sy, float sz, VISc::EInterpolation interpolationMode)
+{
+   if ((sx <= 0.0) || (sy <= 0.0) || (sz <= 0.0))
+      return CVolume_();
+
+   int nw = VISc::MathUtils::Round(sx * m_width);
+   int nh = VISc::MathUtils::Round(sy * m_height);
+   int nd = VISc::MathUtils::Round(sz * m_depth);
+
+   float nw2 = nw / 2.0f;
+   float nh2 = nh / 2.0f;
+   float nd2 = nd / 2.0f;
+   float w2 = m_width / 2.0f;
+   float h2 = m_height / 2.0f;
+   float d2 = m_depth / 2.0f;
+
+   CVolume_ tmpVolume(nw, nh, nd, m_numComponents);
+
+   for (int x = 0; x < nw; ++x)
+   {
+      for (int y = 0; y < nh; ++y)
+      {
+         for (int z = 0; z < nd; ++z)
+         {
+            float xtmp = (x - nw2) / sx + w2;
+            float ytmp = (y - nh2) / sy + h2;
+            float ztmp = (z - nd2) / sz + d2;
+
+            float voxel;
+            switch (interpolationMode)
+            {
+            case VISc::iNearestNeighbor: 
+               xtmp = floor(xtmp+0.5);
+               ytmp = floor(ytmp+0.5);
+               ztmp = floor(ztmp+0.5);
+               voxel = getVoxel(static_cast<int>(xtmp), static_cast<int>(ytmp), static_cast<int>(ztmp));
+               break;
+            case VISc::iTrilinear: 
+               voxel = getVoxelInterpolated(xtmp, ytmp, ztmp);
+               break;
+            }
+            tmpVolume.setVoxel(x, y, z, voxel);
+         }
+      }
+   }
+
+   return tmpVolume;
+}
