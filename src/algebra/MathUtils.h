@@ -49,7 +49,7 @@ namespace VISc
          return false;
       }
 
-      inline double Round(double value, double)
+      inline double Round(double value)
       {
          return static_cast<double>(static_cast<int>(value + 0.5));
          //double integer, fraction;
