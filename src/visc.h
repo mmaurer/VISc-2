@@ -5,6 +5,7 @@
 #include <GL/gl.h>
 
 #include <QtGui>
+#include <QFlags>
 
 namespace VISc 
 {
@@ -42,7 +43,7 @@ namespace VISc
 	enum EMessageType {mtWarning, mtInformation, mtError};
 
 	enum ETransferWidgetOperation {twoNone = 0x00, twoLoad = 0x01, twoSave = 0x02, twoZero = 0x04, twoReset = 0x08};
-	Q_DECLARE_FLAGS(ETransferWidgetOperations, ETransferWidgetOperation)
+    Q_DECLARE_FLAGS(ETransferWidgetOperations, ETransferWidgetOperation)
 
 	enum ETransferWidget {twNone, twOneD, twBasicClusteringVisualizer, twSiftViewer, twMultiresolution};
 }

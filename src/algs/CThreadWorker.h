@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtGui>
 #include <QList>
+#include <QColor>
 
 #include "../algebra/CVector.h"
 

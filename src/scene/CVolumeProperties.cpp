@@ -1,5 +1,10 @@
 #include "CVolumeProperties.h"
 
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QBoxLayout>
+
 CVolumeProperties::CVolumeProperties(CVolume *volume)
 {
 	setWindowTitle(tr("Volume Properties"));

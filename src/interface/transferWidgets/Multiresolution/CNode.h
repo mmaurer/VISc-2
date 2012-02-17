@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include <QList>
+#include <QProgressDialog>
 
 #include "CVoxel.h"
 #include "CCluster.h"

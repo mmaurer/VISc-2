@@ -2,6 +2,9 @@
 #define CMESSAGEBOX_H
 
 #include <QtGui>
+#include <QToolBar>
+#include <QListWidget>
+#include <QAction>
 
 #include "../visc.h"
 

@@ -1,10 +1,9 @@
 #ifndef CMULTIRESOLUTION_H
 #define CMULTIRESOLUTION_H
 
-//#include "visc.h"
 #include <limits.h> 
 
-#include <QtGui>
+#include <QRadioButton>
 
 #include "../CBasicTransferWidget.h"
 #include "CTransferFunction.h"
@@ -17,6 +16,13 @@ using namespace nmMultiresolution;
    #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
    #define new DEBUG_NEW
 #endif
+
+class QComboBox;
+class QPushButton;
+class QLabel;
+class QSpinBox;
+class QDoubleSpinBox;
+class QTimer;
 
 class CMultiresolution : public CBasicTransferWidget
 {

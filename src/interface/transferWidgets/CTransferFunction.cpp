@@ -1,5 +1,7 @@
 #include "CTransferFunction.h"
 
+#include <QMenu>
+
 CTransferFunction::CTransferFunction(void)
 {
 	for (int i=0; i < DEPTH; i++)

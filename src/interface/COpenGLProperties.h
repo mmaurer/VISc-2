@@ -3,6 +3,10 @@
 
 #include <QDialog>
 #include <QWidget>
+#include <QLabel>
+#include <QComboBox>
+#include <QCheckBox>
+#include <QDialogButtonBox>
 
 #include "../visc.h"
 #include "../interface/COpenGL.h"

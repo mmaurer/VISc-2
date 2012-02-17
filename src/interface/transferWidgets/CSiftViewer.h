@@ -13,6 +13,9 @@
 #define new DEBUG_NEW
 #endif
 
+class QRadioButton;
+class QCheckBox;
+
 class CSiftViewer : public CBasicTransferWidget
 {
    Q_OBJECT

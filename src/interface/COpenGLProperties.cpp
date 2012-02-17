@@ -1,5 +1,8 @@
 #include "COpenGLProperties.h"
 
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 // General Tab =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 CTabGeneral::CTabGeneral(COpenGL *view)

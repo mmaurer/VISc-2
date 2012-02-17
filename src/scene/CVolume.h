@@ -18,6 +18,8 @@
 #include <QDateTime>
 #include <QInputDialog>
 #include <QLineEdit>
+#include <QVector4D>
+#include <QVector3D>
 
 #include "../visc.h"
 #include "../algebra/CVector.h"

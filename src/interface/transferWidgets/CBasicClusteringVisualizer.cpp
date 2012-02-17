@@ -1,5 +1,7 @@
 #include "CBasicClusteringVisualizer.h"
 
+#include <QMessageBox>
+
 #include "..\..\scene\CVolume.h"
 
 CBasicClusteringVisualizer::CBasicClusteringVisualizer() :

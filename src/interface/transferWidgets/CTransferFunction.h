@@ -28,7 +28,7 @@ class CTransferFunction : public QWidget
 		VISc::EComponent getComponent() { return this->currentComponent; }
 		void setContextMenu(QMenu *menu) { this->contextMenu = menu; }
 		int getWidth() { return DEPTH + 4; }
-		int getHeight() { return DEPTH + 4; }
+		int getHeight() { return DEPTH + 4; } // It's odd that the body of this method is just like the body of getWidth
 		void setGridX(int value) { this->gridx = value; this->update(); }
 		int getGridX() { return this->gridx; }
 		void setGridY(int value) { this->gridy = value; this->update(); }

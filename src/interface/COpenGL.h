@@ -10,6 +10,7 @@
 #include <QResizeEvent>
 #include <QLineEdit>
 #include <QList>
+#include <QTimer>
 
 #include "../scene/CVolume.h"
 #include "../scene/CLight.h"

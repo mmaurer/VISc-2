@@ -1,5 +1,13 @@
 #include "CSiftViewer.h"
 
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QRadioButton>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QFileDialog>
+#include <QMenu>
+
 #include "../../algs/sift3d/CXMLKeypointReader.h"
 
 CSiftViewer::CSiftViewer(void) :

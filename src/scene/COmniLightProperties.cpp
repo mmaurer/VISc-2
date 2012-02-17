@@ -1,5 +1,11 @@
 #include "COmniLightProperties.h"
 
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QBoxLayout>
+#include <QPushButton>
+
 COmniLightProperties::COmniLightProperties(COmniLight *light)
 {
 	setWindowTitle(tr("Omni Light Properties"));

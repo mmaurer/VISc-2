@@ -3,6 +3,10 @@
 
 #include <QtGui>
 #include <QDialog>
+#include <QLabel>
+#include <QGroupBox>
+#include <QDoubleSpinBox>
+#include <QColorDialog>
 
 #include "CVolume.h"
 

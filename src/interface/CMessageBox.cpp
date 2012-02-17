@@ -1,5 +1,6 @@
 #include "CMessageBox.h"
 
+#include <QVBoxLayout>
 
 bool CMessageBox::instanceFlag = false;
 CMessageBox* CMessageBox::mbInstance = NULL;

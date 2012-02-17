@@ -2,6 +2,11 @@
 #define COMNILIGHTPROPERTIES_H
 
 #include <QDialog>
+#include <QLabel>
+#include <QLineEdit>
+#include <QGroupBox>
+#include <QSpinBox>
+#include <QColorDialog>
 
 #include "COmniLight.h"
 

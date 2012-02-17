@@ -1,5 +1,10 @@
 #include "CMultiresolution.h"
 
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QComboBox>
+#include <QTimer>
+
 CMultiresolution::CMultiresolution(void) :
 CBasicTransferWidget(tr("1tf"), tr("1D Transfer Function"), VISc::twoLoad | VISc::twoSave | VISc::twoZero | VISc::twoReset, Qt::RightDockWidgetArea)
 {

@@ -1,10 +1,13 @@
 #ifndef CBASICTRANSFERWIDGET_H
 #define CBASICTRANSFERWIDGET_H
 
+#include <QWidget>
+#include <QList>
+
 #include "../visc.h"
-#include <QtGui>
 
 class CVolume;
+class QMenu;
 
 #if defined(WIN32) && defined(_DEBUG)
 #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )

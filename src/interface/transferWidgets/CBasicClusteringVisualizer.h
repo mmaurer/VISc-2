@@ -2,6 +2,15 @@
 #define CBASICCLUSTERINGVISUALIZER_H
 
 #include <QtGui>
+#include <QVBoxLayout>
+#include <QScrollArea>
+#include <QTreeWidget>
+#include <QProgressBar>
+#include <QSpinBox>
+#include <QPushButton>
+#include <QLabel>
+#include <QThread>
+
 #include "..\CBasicTransferWidget.h"
 #include "..\..\algebra\CVector.h"
 

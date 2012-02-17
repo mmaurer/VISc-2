@@ -1,5 +1,7 @@
 #include "CTransferWidget.h"
 
+#include <QHBoxLayout>
+
 CTransferWidget::CTransferWidget(void) :
 CBasicTransferWidget(tr("1tf"), tr("1D Transfer Function"), VISc::twoLoad | VISc::twoSave | VISc::twoZero | VISc::twoReset, Qt::RightDockWidgetArea)
 {

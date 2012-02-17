@@ -1,5 +1,16 @@
 #include "CScreenShot.h"
 
+#include <QLabel>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <QPushButton>
+#include <QFileDialog>
+#include <QImageWriter>
+
 CScreenShot::CScreenShot(QSize lastSize)
 {
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);

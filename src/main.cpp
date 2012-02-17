@@ -42,7 +42,7 @@
 #include <iostream>
 
 #include <QApplication>
-
+#include <QSplashScreen>
 #include "interface/CMainForm.h"
 
 #if defined(WIN32) && defined(_DEBUG)
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 
 #ifndef _DEBUG
 	QPixmap splashPixmap(":/resource/splash.png");
-   QSplashScreen splash(splashPixmap, Qt::WindowStaysOnTopHint);
+    QSplashScreen splash(splashPixmap, Qt::WindowStaysOnTopHint);
 	splash.show();
 #endif
 

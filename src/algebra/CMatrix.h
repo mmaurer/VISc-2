@@ -1,6 +1,8 @@
 #ifndef CMATRIX_H
 #define CMATRIX_H
 
+#include <QMatrix4x4>
+
 #include "MathUtils.h"
 #include "CPoint.h"
 
@@ -9,13 +11,8 @@
    #define new DEBUG_NEW
 #endif
 
-/// A matrix of doubles
-/** Although a Template Matrix could be use instead of this rigid representation,
-the Double Matrix is preferred because of double type usage: other types of matrixes
-are not used in VISc platform. To avoid future conversion problems or confusions,
-the only matrix type available is the one that use doubles, sacrificing flexibility for simplicity.
-*/
-	class CMatrix {
+class CMatrix : public QMatrix4x4
+{
 		// Public stuff
 		public:
 			// Empty Constructor. Assumes the matrix will be 4x4
@@ -24,6 +21,17 @@ the only matrix type available is the one that use doubles, sacrificing flexibil
 			// Constructors
 			CMatrix(const CMatrix &matrix); // Copy constructor
 			CMatrix(const CMatrix *matrix);
+         CMatrix(const QMatrix4x4 &matrix)
+         {
+            QMatrix4x4 tmpMatrix = matrix.transposed();
+            std::memcpy(QMatrix4x4::data(), tmpMatrix.data(), sizeof(qreal) * 16);
+         }
+
+         CMatrix(double *GLMatrixPtr)
+         {
+            std::memcpy(QMatrix4x4::data(), GLMatrixPtr, sizeof(qreal) * 16);
+            (*this) = transposed();
+         }
 
 			// Copy current matrix to a brand new one
 			CMatrix copy();

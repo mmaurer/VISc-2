@@ -8,6 +8,10 @@
 #include <QtGui>
 #include <QtOpenGL/QtOpenGL>
 #include <QtDebug>
+#include <QGLShaderProgram>
+#include <QGLShader>
+#include <QGLFrameBufferObject>
+#include <QMenu>
 
 #include "COpenGL.h"
 #include "CMessageBox.h"
@@ -186,6 +190,26 @@ void COpenGL::initializeGL()
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glEnable(GL_DEPTH_TEST);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+   //QGLShader fragmentShader(QGLShader::Fragment);
+   //QFile fragmentShaderFile("Debug/shaders/tex.frag");
+   //if (fragmentShaderFile.exists())
+   //{
+   //   if (fragmentShader.compileSourceFile("Debug/shaders/tex.frag"))
+   //      CMessageBox::getInstance()->writeMessage( "Fragment shader compiled successfully.", VISc::mtInformation);
+   //   else
+   //      CMessageBox::getInstance()->writeMessage( fragmentShader.log(), VISc::mtError );
+
+   //   QGLShaderProgram program( context(), this );
+   //   program.addShader( &fragmentShader );
+   //   if (program.link())
+   //      CMessageBox::getInstance()->writeMessage( "Fragment shader linked successfully.", VISc::mtInformation );
+   //   else
+   //      CMessageBox::getInstance()->writeMessage( program.log(), VISc::mtError );
+   //}
+   //else
+   //   CMessageBox::getInstance()->writeMessage( "Fragment shader file not found.", VISc::mtWarning );
+
 
 	// OpenGL Extensions
 	GLchar *FragmentShaderSourceDvrVertex, *FragmentShaderSourceDvrFragment;
@@ -426,7 +450,7 @@ int COpenGL::shaderSize(QString fileName, VISc::EProfile shaderType)
 				break;
 	}
 
-	QFile tmpFile("../shaders/" + fileName);
+	QFile tmpFile("Debug/shaders/" + fileName);
 	return tmpFile.size();
 }
 
@@ -453,7 +477,7 @@ int COpenGL::readShader(QString fileName, VISc::EProfile shaderType, char *shade
 					break;
 	}
 
-	QFile tmpFile("../shaders/" + fileName);
+	QFile tmpFile("Debug/shaders/" + fileName);
 	if (!tmpFile.open(QIODevice::ReadOnly))
 		return 0;
 		
@@ -662,6 +686,8 @@ int COpenGL::installShaders(const GLchar *vertexProgram, const GLchar *fragmentP
 
 void COpenGL::unproject(CPoint *origin, CPoint *destination, GLdouble *model , GLdouble *proj , GLint *view)
 {
+   CMatrix mModelViewMatrix(model);
+   CMatrix mProjectionMatrix(proj);
    //QMatrix4x4 qmModelViewMatrix(model);
    //qmModelViewMatrix = qmModelViewMatrix.transposed();
    //QMatrix4x4 qmProjectionMatrix(proj);
@@ -682,10 +708,10 @@ void COpenGL::unproject(CPoint *origin, CPoint *destination, GLdouble *model , G
    //destination->setW( res.w() );
 
 	// Transforms OpenGL matrix into a CMatrix object
-	CMatrix mModelViewMatrix;
-	CMatrix mProjectionMatrix;
-	mModelViewMatrix.setGlMatrix(model);
-	mProjectionMatrix.setGlMatrix(proj);
+//	CMatrix mModelViewMatrix;
+//	CMatrix mProjectionMatrix;
+//	mModelViewMatrix.setGlMatrix(model);
+//	mProjectionMatrix.setGlMatrix(proj);
 
 	// Invert the matrix to obtain
 	CMatrix product = mProjectionMatrix * mModelViewMatrix;
@@ -1344,12 +1370,12 @@ void COpenGL::lookAtGL(const GLdouble p_EyeX, const GLdouble p_EyeY, const GLdou
 	GLdouble l_rX = 0.0f;
 	GLdouble l_rY = 0.0f;
   
-	GLdouble l_hA = (l_X == 0.0f) ? l_Z : hypot(l_X, l_Z);
+    GLdouble l_hA = (l_X == 0.0f) ? l_Z : _hypot(l_X, l_Z);
 	GLdouble l_hB;
 	if(l_Z == 0.0f)
-		l_hB = hypot(l_X, l_Y);
+        l_hB = _hypot(l_X, l_Y);
 	else
-		l_hB = (l_Y == 0.0f) ? l_hA : hypot(l_Y, l_hA);
+        l_hB = (l_Y == 0.0f) ? l_hA : _hypot(l_Y, l_hA);
 
 	l_rX = asin(l_Y / l_hB) * (180 / M_PI);
 	l_rY = asin(l_X / l_hA) * (180 / M_PI);
@@ -1720,7 +1746,10 @@ void COpenGL::setVolumeTexture(int index)
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_WRAP_R, GL_CLAMP);
-	glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, volumeData.getWidth(), volumeData.getHeight(), volumeData.getDepth(), 0, GL_RGBA, GL_UNSIGNED_BYTE, volumeData.getData());
+   if (typeid(volumeData) == typeid(CVolume))
+	   glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, volumeData.getWidth(), volumeData.getHeight(), volumeData.getDepth(), 0, GL_RGBA, GL_UNSIGNED_BYTE, volumeData.getData());
+   else if (typeid(volumeData) == typeid(CVolume_))
+      glTexImage3D(GL_TEXTURE_3D, 0, GL_RGBA, volumeData.getWidth(), volumeData.getHeight(), volumeData.getDepth(), 0, GL_RGBA, GL_FLOAT, volumeData.getData());
 	printOglError(__FILE__, __LINE__);
 	
    QResizeEvent qre(this->size(), this->size());

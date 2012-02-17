@@ -4,6 +4,7 @@
 //#include "visc.h"
 
 #include <QtGui>
+#include <QRadioButton>
 
 #include "../CBasicTransferWidget.h"
 #include "CTransferFunction.h"
