@@ -473,7 +473,7 @@ void CMatrix::getEulerAngles(float &x, float &y, float &z)
 */
 
 	sy	= -data[2];
-	cy	= sqrt(1 - std::pow(sy, 2.0));
+    cy	= sqrt(1 - pow(sy, 2.0));
 	angle_y	= atan2(sy, cy);
 
 
