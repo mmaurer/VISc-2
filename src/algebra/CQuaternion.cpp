@@ -57,7 +57,7 @@ CQuaternion::CQuaternion(CVector &v, const float angle)
 
 /*__forceinline*/inline double CQuaternion::norm(void)
 {
-   return(std::sqrt( std::pow(x,2.0f) + std::pow(y,2.0f) + std::pow(z,2.0f) + std::pow(w,2.0f)));
+   return(sqrt( pow(x,2.0f) + pow(y,2.0f) + pow(z,2.0f) + pow(w,2.0f)));
 }	// end float Norm()
 
 ////////
@@ -209,7 +209,7 @@ void CQuaternion::getAxisAngle(CVector &v, float &angle) const
 	//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	// Another version where scale is VISc::MathUtils::Powt (x2 + y2 + z2)
 	//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   scale = (float)std::sqrt(VISc::MathUtils::Pow(x) + VISc::MathUtils::Pow(y) + VISc::MathUtils::Pow(z));
+   scale = (float)sqrt(VISc::MathUtils::Pow(x) + VISc::MathUtils::Pow(y) + VISc::MathUtils::Pow(z));
 //	scale = (float)sin(temp_angle);
 
 	assert(0 <= temp_angle);		// make sure angle is 0 - VISc::MathUtils::PI
