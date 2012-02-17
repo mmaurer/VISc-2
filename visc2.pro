@@ -8,14 +8,14 @@ message($$CONFIG)
 TEMPLATE = app
 TARGET = visc2
 DEPENDPATH += . \
-              src \
-              src/algebra \
-              src/algs \
-              src/interface \
-              src/scene \
-              src/algs/sift3d \
-              src/interface/transferWidgets \
-              src/interface/transferWidgets/Multiresolution
+    src \
+    src/algebra \
+    src/algs \
+    src/interface \
+    src/scene \
+    src/algs/sift3d \
+    src/interface/transferWidgets \
+    src/interface/transferWidgets/Multiresolution
 INCLUDEPATH += .
 
 windows {
@@ -25,64 +25,67 @@ windows {
 
 # Input
 HEADERS += src/visc.h \
-           src/algebra/CMatrix.h \
-           src/algebra/CPoint.h \
-           src/algebra/CQuaternion.h \
-           src/algebra/CVector.h \
-           src/algebra/CVirtualTrackball.h \
-           src/algebra/MathUtils.h \
-           src/algs/CThreadWorker.h \
-           src/interface/CAbout.h \
-           src/interface/CBasicTransferWidget.h \
-           src/interface/CMainForm.h \
-           src/interface/CMessageBox.h \
-           src/interface/COpenGL.h \
-           src/interface/COpenGLProperties.h \
-           src/interface/CScreenShot.h \
-           src/scene/CLight.h \
-           src/scene/COmniLight.h \
-           src/scene/COmniLightProperties.h \
-           src/scene/CSpotLight.h \
-           src/scene/CVolume.h \
-           src/scene/CVolumeProperties.h \
-           src/algs/sift3d/CKeypoint.h \
-           src/algs/sift3d/CXMLKeypointReader.h \
-           src/interface/transferWidgets/CBasicClusteringVisualizer.h \
-           src/interface/transferWidgets/CMultiresolution.h \
-           src/interface/transferWidgets/CSiftViewer.h \
-           src/interface/transferWidgets/CTransferFunction.h \
-           src/interface/transferWidgets/CTransferWidget.h \
-           src/interface/transferWidgets/Multiresolution/CCluster.h \
-           src/interface/transferWidgets/Multiresolution/CNode.h \
-           src/interface/transferWidgets/Multiresolution/CVoxel.h
+    src/algebra/CMatrix.h \
+    src/algebra/CPoint.h \
+    src/algebra/CQuaternion.h \
+    src/algebra/CVector.h \
+    src/algebra/CVirtualTrackball.h \
+    src/algebra/MathUtils.h \
+    src/algs/CThreadWorker.h \
+    src/interface/CAbout.h \
+    src/interface/CBasicTransferWidget.h \
+    src/interface/CMainForm.h \
+    src/interface/CMessageBox.h \
+    src/interface/COpenGL.h \
+    src/interface/COpenGLProperties.h \
+    src/interface/CScreenShot.h \
+    src/scene/CLight.h \
+    src/scene/COmniLight.h \
+    src/scene/COmniLightProperties.h \
+    src/scene/CSpotLight.h \
+    src/scene/CVolume.h \
+    src/scene/CVolumeProperties.h \
+    src/algs/sift3d/CKeypoint.h \
+    src/algs/sift3d/CXMLKeypointReader.h \
+    src/interface/transferWidgets/CBasicClusteringVisualizer.h \
+    src/interface/transferWidgets/CMultiresolution.h \
+    src/interface/transferWidgets/CSiftViewer.h \
+    src/interface/transferWidgets/CTransferFunction.h \
+    src/interface/transferWidgets/CTransferWidget.h \
+    src/interface/transferWidgets/Multiresolution/CCluster.h \
+    src/interface/transferWidgets/Multiresolution/CNode.h \
+    src/interface/transferWidgets/Multiresolution/CVoxel.h \
+    src/scene/CSceneObject.h \
+    src/scene/volumeReaders/CVolumeReaderBase.h
 SOURCES += src/main.cpp \
-           src/algebra/CMatrix.cpp \
-           src/algebra/CPoint.cpp \
-           src/algebra/CQuaternion.cpp \
-           src/algebra/CVector.cpp \
-           src/algebra/CVirtualTrackball.cpp \
-           src/algebra/MathUtils.cpp \
-           src/algs/CThreadWorker.cpp \
-           src/interface/CAbout.cpp \
-           src/interface/CMainForm.cpp \
-           src/interface/CMessageBox.cpp \
-           src/interface/COpenGL.cpp \
-           src/interface/COpenGLProperties.cpp \
-           src/interface/CScreenShot.cpp \
-           src/scene/CLight.cpp \
-           src/scene/COmniLight.cpp \
-           src/scene/COmniLightProperties.cpp \
-           src/scene/CSpotLight.cpp \
-           src/scene/CVolume.cpp \
-           src/scene/CVolumeProperties.cpp \
-           src/algs/sift3d/CKeypoint.cpp \
-           src/algs/sift3d/CXMLKeypointReader.cpp \
-           src/interface/transferWidgets/CBasicClusteringVisualizer.cpp \
-           src/interface/transferWidgets/CMultiresolution.cpp \
-           src/interface/transferWidgets/CSiftViewer.cpp \
-           src/interface/transferWidgets/CTransferFunction.cpp \
-           src/interface/transferWidgets/CTransferWidget.cpp \
-           src/interface/transferWidgets/Multiresolution/CCluster.cpp \
-           src/interface/transferWidgets/Multiresolution/CVoxel.cpp
+    src/algebra/CMatrix.cpp \
+    src/algebra/CPoint.cpp \
+    src/algebra/CQuaternion.cpp \
+    src/algebra/CVector.cpp \
+    src/algebra/CVirtualTrackball.cpp \
+    src/algebra/MathUtils.cpp \
+    src/algs/CThreadWorker.cpp \
+    src/interface/CAbout.cpp \
+    src/interface/CMainForm.cpp \
+    src/interface/CMessageBox.cpp \
+    src/interface/COpenGL.cpp \
+    src/interface/COpenGLProperties.cpp \
+    src/interface/CScreenShot.cpp \
+    src/scene/CLight.cpp \
+    src/scene/COmniLight.cpp \
+    src/scene/COmniLightProperties.cpp \
+    src/scene/CSpotLight.cpp \
+    src/scene/CVolume.cpp \
+    src/scene/CVolumeProperties.cpp \
+    src/algs/sift3d/CKeypoint.cpp \
+    src/algs/sift3d/CXMLKeypointReader.cpp \
+    src/interface/transferWidgets/CBasicClusteringVisualizer.cpp \
+    src/interface/transferWidgets/CMultiresolution.cpp \
+    src/interface/transferWidgets/CSiftViewer.cpp \
+    src/interface/transferWidgets/CTransferFunction.cpp \
+    src/interface/transferWidgets/CTransferWidget.cpp \
+    src/interface/transferWidgets/Multiresolution/CCluster.cpp \
+    src/interface/transferWidgets/Multiresolution/CVoxel.cpp \
+    src/scene/CSceneObject.cpp
 RESOURCES += src/visc.qrc
 QT += opengl
