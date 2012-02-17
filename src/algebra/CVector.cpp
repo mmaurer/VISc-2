@@ -116,7 +116,7 @@ double CVector::angleToVector (CVector &vector)
 
 VISc::MathUtils::EComponentType CVector::maxComponent()
 {
-	if (this->x > this->y && this->x > this->y)
+	if (this->x > this->y && this->x > this->z)
 		return VISc::MathUtils::X;
 	else if (this->y > this->x && this->y > this->z)
 		return VISc::MathUtils::Y;
