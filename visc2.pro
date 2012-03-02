@@ -74,7 +74,6 @@ SOURCES += src/main.cpp \
     src/scene/CLight.cpp \
     src/scene/COmniLight.cpp \
     src/scene/COmniLightProperties.cpp \
-    src/scene/CSpotLight.cpp \
     src/scene/CVolume.cpp \
     src/scene/CVolumeProperties.cpp \
     src/algs/sift3d/CKeypoint.cpp \

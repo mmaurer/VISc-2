@@ -11,42 +11,42 @@ class QLineEdit;
 class QDialogButtonBox;
 
 #if defined(WIN32) && defined(_DEBUG)
-   #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
-   #define new DEBUG_NEW
+#define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#define new DEBUG_NEW
 #endif
 
 class CScreenShot : public QDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 
-	public:
-		CScreenShot(QSize);
-		~CScreenShot(void);
+public:
+    CScreenShot(QSize size);
+    virtual ~CScreenShot() { }
 
-		int getWidth() {return this->width; };
-		int getHeight() { return this->height; };
-		QString getFileName() { return this->fileName; };
+    int getWidth() const {return m_width; }
+    int getHeight() const { return m_height; }
+    QString getFileName() const { return m_qsFileName; }
 
-	private slots:
-		void accepted();
-		void clicked();
-		void rejected();
+private slots:
+    void accepted();
+    void clicked();
+    void rejected();
 
-	private:
-		int width, height;
-		QString fileName;
+private:
+    int m_width, m_height;
+    QString m_qsFileName;
 
-		QLabel *widthLabel, *heightLabel;
-		QSpinBox *widthSpin, *heightSpin;
+    QSharedPointer<QLabel> m_qlWidthLabel, m_qlHeightLabel;
+    QSharedPointer<QSpinBox> m_qsbWidthSpin, m_qsbHeightSpin;
 
-		QLabel *imageFormatlabel;
-		QComboBox *imageFormatCombo;
+    QSharedPointer<QLabel> imageFormatlabel;
+    QSharedPointer<QComboBox> m_qcbImageFormatCombo;
 
-		QLabel *fileNameLabel;
-		QLineEdit *fileNameEdit;
-		QPushButton *fileNameButton;
+    QSharedPointer<QLabel> m_qlFileNameLabel;
+    QSharedPointer<QLineEdit> m_qleFileNameEdit;
+    QSharedPointer<QPushButton> m_qpbFileNameButton;
 
-		QDialogButtonBox *buttons;
+    QSharedPointer<QDialogButtonBox> m_qdbbButtons;
 };
 
 #endif

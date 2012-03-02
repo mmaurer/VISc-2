@@ -11,102 +11,84 @@
 #include <QFileDialog>
 #include <QImageWriter>
 
-CScreenShot::CScreenShot(QSize lastSize)
+CScreenShot::CScreenShot(QSize size)
 {
 	QVBoxLayout *mainLayout = new QVBoxLayout(this);
 
 	QVBoxLayout *sizeLayout = new QVBoxLayout();
 	QGroupBox *sizeGroup = new QGroupBox(tr("Screenshot size"));
-	widthLabel = new QLabel(tr("Width"));
-	widthSpin = new QSpinBox();
-	widthSpin->setMinimum(1);
-	widthSpin->setMaximum(5000);
-	widthSpin->setValue(lastSize.width());
+    m_qlWidthLabel = QSharedPointer<QLabel>(new QLabel(tr("Width")));
+    m_qsbWidthSpin = QSharedPointer<QSpinBox>( new QSpinBox() );
+    m_qsbWidthSpin->setMinimum(1);
+    m_qsbWidthSpin->setMaximum(5000);
+    m_qsbWidthSpin->setValue(size.width());
 	
 	QHBoxLayout *w = new QHBoxLayout();
-	w->addWidget(widthLabel);
-	w->addWidget(widthSpin);
+    w->addWidget(m_qlWidthLabel.data());
+    w->addWidget(m_qsbWidthSpin.data());
 
-	heightLabel = new QLabel(tr("Height"));
-	heightSpin = new QSpinBox();
-	heightSpin->setMinimum(1);
-	heightSpin->setMaximum(5000);
-	heightSpin->setValue(lastSize.height());
+    m_qlHeightLabel = QSharedPointer<QLabel>(new QLabel(tr("Height")));
+    m_qsbHeightSpin = QSharedPointer<QSpinBox>(new QSpinBox());
+    m_qsbHeightSpin->setMinimum(1);
+    m_qsbHeightSpin->setMaximum(5000);
+    m_qsbHeightSpin->setValue(size.height());
 
 	QHBoxLayout *h = new QHBoxLayout();
-	h->addWidget(heightLabel);
-	h->addWidget(heightSpin);
+    h->addWidget(m_qlHeightLabel.data());
+    h->addWidget(m_qsbHeightSpin.data());
 
 	sizeLayout->addLayout(w);
 	sizeLayout->addLayout(h);
-	//sizeLayout->addWidget(heightLabel);
-	//sizeLayout->addWidget(height);
 	sizeGroup->setLayout(sizeLayout);
 		
 	mainLayout->addWidget(sizeGroup);
 
-	//QHBoxLayout *fileFormatLayout = new QHBoxLayout();
-	//imageFormatlabel = new QLabel(tr("Image format:"));
-	//imageFormatCombo = new QComboBox();
-	//QList<QByteArray> formats = QImageWriter::supportedImageFormats();
-	//for (int i = 0; i < formats.count(); i++)
-	//{
-	//	imageFormatCombo->addItem(QString(formats.at(i)));
-	//}
-	//fileFormatLayout->addWidget(imageFormatlabel);
-	//fileFormatLayout->addWidget(imageFormatCombo);
-	//mainLayout->addLayout(fileFormatLayout);
+    QHBoxLayout fileNameLayout;
+    //QHBoxLayout *fileNameLayout = new QHBoxLayout();
+    m_qlFileNameLabel = QSharedPointer<QLabel>( new QLabel(tr("File name:")) );
+    m_qleFileNameEdit = QSharedPointer<QLineEdit>( new QLineEdit() );
+    m_qpbFileNameButton = QSharedPointer<QPushButton>( new QPushButton(tr("Browse")) );
+    connect(m_qpbFileNameButton.data(), SIGNAL(clicked()), this, SLOT(clicked()));
+    fileNameLayout.addWidget(m_qlFileNameLabel.data());
+    fileNameLayout.addWidget(m_qleFileNameEdit.data());
+    fileNameLayout.addWidget(m_qpbFileNameButton.data());
+    mainLayout->addLayout(&fileNameLayout);
 
-	QHBoxLayout *fileNameLayout = new QHBoxLayout();
-	fileNameLabel = new QLabel(tr("File name:"));
-	fileNameEdit = new QLineEdit();
-	fileNameButton = new QPushButton(tr("Browse"));
-	connect(fileNameButton, SIGNAL(clicked()), this, SLOT(clicked()));
-	fileNameLayout->addWidget(fileNameLabel);
-	fileNameLayout->addWidget(fileNameEdit);
-	fileNameLayout->addWidget(fileNameButton);
-	mainLayout->addLayout(fileNameLayout);
+    m_qdbbButtons = QSharedPointer<QDialogButtonBox>(new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel));
+    connect(m_qdbbButtons.data(), SIGNAL(accepted()), this, SLOT(accepted()));
+    connect(m_qdbbButtons.data(), SIGNAL(rejected()), this, SLOT(rejected()));
 
-	buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
-	connect(buttons, SIGNAL(accepted()), this, SLOT(accepted()));
-	connect(buttons, SIGNAL(rejected()), this, SLOT(rejected()));
-
-	mainLayout->addWidget(buttons);
-}
-
-CScreenShot::~CScreenShot(void)
-{
+    mainLayout->addWidget(m_qdbbButtons.data());
 }
 
 void CScreenShot::accepted()
 {
-	width = widthSpin->value();
-	height = heightSpin->value();
-	fileName = fileNameEdit->text();
-	this->close();
+    m_width = m_qsbWidthSpin->value();
+    m_height = m_qsbHeightSpin->value();
+    m_qsFileName = m_qleFileNameEdit->text();
+    close();
 }
 
 void CScreenShot::rejected()
 {
-	width = widthSpin->value();
-	height = heightSpin->value();
+    m_width = m_qsbWidthSpin->value();
+    m_height = m_qsbHeightSpin->value();
 
-	fileName = "";
-	this->close();
+    m_qsFileName = "";
+    close();
 }
-
 
 void CScreenShot::clicked()
 {
 	QString supportedExtensions;
 	QList<QByteArray> formats = QImageWriter::supportedImageFormats();
-	for (int i = 0; i < formats.count(); i++)
+    for (int i = 0; i < formats.count(); ++i)
 	{
-		if (i < (formats.count() - 1))
+//		if (i < (formats.count() - 1))
 			supportedExtensions += "Image file (*." + QString(formats.at(i)) + ")\n";
 	}
 
 	QString result = QFileDialog::getSaveFileName(this, tr("Browse location"), "screenshots", supportedExtensions); 
 
-	fileNameEdit->setText(result);
+    m_qleFileNameEdit->setText(result);
 }
