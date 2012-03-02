@@ -42,7 +42,6 @@ HEADERS += src/visc.h \
     src/scene/CLight.h \
     src/scene/COmniLight.h \
     src/scene/COmniLightProperties.h \
-    src/scene/CSpotLight.h \
     src/scene/CVolume.h \
     src/scene/CVolumeProperties.h \
     src/algs/sift3d/CKeypoint.h \
