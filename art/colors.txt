@@ -1,2 +1,9 @@
+Version 1:
+
 Orange: (0, 60, 100, 0) - CMYK
 Blue  : (100, 20, 0, 0) - CMYK
+
+Version 2:
+
+Orange: (0, 60, 100, 0) - CMYK
+Green : (100, 0, 0, 50) - CMYK
