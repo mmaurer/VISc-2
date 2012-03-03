@@ -25,9 +25,9 @@
    inkscape:export-ydpi="58.182026"><metadata
    id="metadata130"><rdf:RDF><cc:Work
        rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><sodipodi:namedview
-   inkscape:window-height="455"
-   inkscape:window-width="698"
+         rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><sodipodi:namedview
+   inkscape:window-height="838"
+   inkscape:window-width="1440"
    inkscape:pageshadow="2"
    inkscape:pageopacity="0.0"
    guidetolerance="10.0"
@@ -37,14 +37,14 @@
    bordercolor="#666666"
    pagecolor="#ffffff"
    id="base"
-   inkscape:zoom="0.22425739"
+   inkscape:zoom="0.58820054"
    inkscape:cx="372.04724"
    inkscape:cy="526.18109"
-   inkscape:window-x="155"
-   inkscape:window-y="797"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
    inkscape:current-layer="svg2"
    showgrid="false"
-   inkscape:window-maximized="0" />
+   inkscape:window-maximized="1" />
  <defs
    id="defs4">
   <font
@@ -276,57 +276,7 @@
    inkscape:export-filename="D:\docTmp\projects\visc2\src\resource\splash.png"
    inkscape:export-xdpi="137.9644"
    inkscape:export-ydpi="137.9644"
-   inkscape:connector-curvature="0" /><g
-   style="fill-rule:evenodd"
-   id="g3851"
-   transform="matrix(2.3708666,0,0,2.3708666,-181.63788,-124.837)"><g
-     transform="translate(0.69014218,0)"
-     id="g3024"><text
-       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
-       id="text33"
-       class="fil0 fnt0"
-       y="166.748"
-       x="96.863098"
-       sodipodi:linespacing="100%">V</text>
-<text
-       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
-       id="text35"
-       class="fil0 fnt0"
-       y="166.748"
-       x="106.80527"
-       sodipodi:linespacing="100%">I</text>
-<text
-       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
-       id="text37"
-       class="fil0 fnt0"
-       y="166.748"
-       x="109.81899"
-       sodipodi:linespacing="100%">S</text>
-<text
-       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#e77817;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
-       id="text39"
-       class="fil1 fnt0"
-       y="166.748"
-       x="118.18166"
-       sodipodi:linespacing="100%">c</text>
-</g><g
-     transform="translate(-2.0135848,0)"
-     id="g3847"><path
-       inkscape:connector-curvature="0"
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#e77817;fill-opacity:1;stroke:none;stroke-width:2.82220006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-       d="m 378.25,435.9375 a 5.0004605,5.0004605 0 0 0 -4.53125,4.96875 l 0,39.71875 10.0625,0 0,-34.71875 60.125,0 0,60.21875 -34.65625,0 0,9.96875 39.65625,0 A 5.0004605,5.0004605 0 0 0 454,511.125 l 0,-70.21875 a 5.0004605,5.0004605 0 0 0 -5.09375,-4.96875 l -70.21875,0 a 5.0004605,5.0004605 0 0 0 -0.4375,0 z m -4.53125,47.1875 0,20.5 10.0625,0 0,-11.15625 0,-9.34375 -10.0625,0 z m 0,23 0,5 a 5.0004605,5.0004605 0 0 0 4.96875,4.96875 l 5.09375,0 0,-9.96875 -10.0625,0 z m 12.5625,0 0,9.96875 20.46875,0 0,-9.96875 -8.65625,0 -11.8125,0 z"
-       transform="matrix(0.28222223,0,0,0.28222223,-1.3919578e-6,0)"
-       id="rect41" /><rect
-       style="fill:none;stroke:#007cc3;stroke-width:2.82220006;stroke-linejoin:round"
-       id="rect54"
-       height="19.815599"
-       width="19.815599"
-       y="129.392"
-       x="101.933"
-       class="fil2 str2"
-       inkscape:export-filename="D:\docTmp\projects\visc2\src\resource\visc.png"
-       inkscape:export-xdpi="29.458042"
-       inkscape:export-ydpi="29.458042" /></g></g><flowRoot
+   inkscape:connector-curvature="0" /><flowRoot
    xml:space="preserve"
    id="flowRoot3636"
    style="font-size:1.69333339px;text-align:end;text-anchor:end"
@@ -344,4 +294,52 @@
      style="font-size:1.69333339px;text-align:end;text-anchor:end"
      id="flowPara3658">Copyright 2007, Mauricio R. Maurer</flowPara><flowPara
      style="font-size:1.69333339px;text-align:end;text-anchor:end"
-     id="flowPara3662">Scientific Visualizer, version 2.0</flowPara></flowRoot></svg>
+     id="flowPara3662">Scientific Visualizer, version 2.0</flowPara></flowRoot><g
+   transform="matrix(0.434051,0,0,0.434051,38.211499,158.27349)"
+   style="fill-rule:evenodd"
+   id="g3774"><g
+     transform="matrix(5.4621886,0,0,5.4621886,-502.73659,-652.25216)"
+     id="g3024-1"><text
+       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
+       id="text33-7"
+       class="fil0 fnt0"
+       y="166.748"
+       x="96.863098"
+       sodipodi:linespacing="100%">V</text>
+<text
+       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
+       id="text35-4"
+       class="fil0 fnt0"
+       y="166.748"
+       x="106.80527"
+       sodipodi:linespacing="100%">I</text>
+<text
+       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#1f1a17;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
+       id="text37-0"
+       class="fil0 fnt0"
+       y="166.748"
+       x="109.81899"
+       sodipodi:linespacing="100%">S</text>
+<text
+       style="font-size:19.34410095px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:100%;writing-mode:lr-tb;text-anchor:start;fill:#e77817;font-family:Humanst521 BT;-inkscape-font-specification:Humanst521 BT Bold"
+       id="text39-9"
+       class="fil1 fnt0"
+       y="166.748"
+       x="118.18166"
+       sodipodi:linespacing="100%">c</text>
+</g><g
+     id="g3770"><path
+       inkscape:connector-curvature="0"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#e77817;fill-opacity:1;stroke:none;stroke-width:2.82220006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
+       d="m 65.586796,19.767729 a 7.7084649,7.7084649 0 0 0 -6.985153,7.659582 l 0,61.228478 15.511857,0 0,-53.520723 92.68575,0 0,92.830274 -53.42437,0 0,15.36734 61.13213,0 a 7.7084649,7.7084649 0 0 0 7.85227,-7.65959 l 0,-108.245779 a 7.7084649,7.7084649 0 0 0 -7.85227,-7.659582 l -108.245786,0 a 7.7084649,7.7084649 0 0 0 -0.674428,0 z m -6.985153,72.741938 0,31.601793 15.511857,0 0,-17.19793 0,-14.403863 -15.511857,0 z m 0,35.455673 0,7.70775 a 7.7084649,7.7084649 0 0 0 7.659581,7.65959 l 7.852276,0 0,-15.36734 -15.511857,0 z m 19.365734,0 0,15.36734 31.553623,0 0,-15.36734 -13.344052,0 -18.209571,0 z"
+       id="rect41-4" /><rect
+       style="opacity:0.98000004;fill:none;stroke:#008080;stroke-width:15.41538906;stroke-linejoin:round;stroke-opacity:1"
+       id="rect54-8"
+       height="108.23654"
+       width="108.23654"
+       y="54.511337"
+       x="39.272404"
+       class="fil2 str2"
+       inkscape:export-filename="D:\docTmp\projects\visc2\src\resource\visc.png"
+       inkscape:export-xdpi="29.458042"
+       inkscape:export-ydpi="29.458042" /></g></g></svg>
