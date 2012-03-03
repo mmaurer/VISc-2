@@ -2,13 +2,12 @@
 #define CSCREENSHOT_H
 
 #include <QDialog>
-#include <QtGui>
-
-class QLabel;
-class QSpinBox;
-class QComboBox;
-class QLineEdit;
-class QDialogButtonBox;
+#include <QPushButton>
+#include <QLabel>
+#include <QSpinBox>
+#include <QComboBox>
+#include <QLineEdit>
+#include <QDialogButtonBox>
 
 #if defined(WIN32) && defined(_DEBUG)
 #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )

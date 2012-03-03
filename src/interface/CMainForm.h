@@ -46,7 +46,6 @@ private slots:
 
     // Transfer Function
     void chooseTransferWidgetAction();
-    void chooseBasicClusteringAction();
     void chooseSiftViewerAction();
     void chooseMultiresolutionAction();
     void resetTransferFunctionAction();
@@ -153,7 +152,6 @@ private:
     QAction m_qaViewProperties;
     QAction m_qaSaveScreenShot;
     QAction m_qaChooseTransferWidget; // Transfer Functions
-    QAction m_qaChooseBasicClustering;
     QAction m_qaChooseSiftViewer;
     QAction m_qaChooseMultiresolution;
     QAction m_qaChooseWidget;

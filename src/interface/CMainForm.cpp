@@ -12,7 +12,6 @@
 #include "CScreenShot.h"
 #include "CMessageBox.h"
 #include "transferWidgets\CTransferWidget.h"
-#include "transferWidgets\CBasicClusteringVisualizer.h"
 #include "transferWidgets\CMultiresolution.h"
 #include "transferWidgets\CSiftViewer.h"
 
@@ -43,7 +42,6 @@ m_qaWireFrame(this),
 m_qaViewProperties(this),
 m_qaSaveScreenShot(this),
 m_qaChooseTransferWidget(this), // Tranfer Functions
-m_qaChooseBasicClustering(this),
 m_qaChooseSiftViewer(this),
 m_qaChooseMultiresolution(this),
 m_qaChooseWidget(this),
@@ -124,11 +122,6 @@ void CMainForm::createActions()
    m_qaChooseTransferWidget.setCheckable(true);
    m_qaChooseTransferWidget.setChecked(true);
    connect(&m_qaChooseTransferWidget, SIGNAL(triggered()), this, SLOT(chooseTransferWidgetAction()));
-
-   createIndividualAction(m_qaChooseBasicClustering, QIcon(), tr("Basic Clustering Visualization"), tr(""), tr("Loads the basic clustering visualization as the transfer function"));
-   m_qaChooseBasicClustering.setCheckable(true);
-   m_qaChooseBasicClustering.setChecked(false);
-   connect(&m_qaChooseBasicClustering, SIGNAL(triggered()), this, SLOT(chooseBasicClusteringAction()));
 
    createIndividualAction(m_qaChooseSiftViewer, QIcon(), tr("Sift Viewer"), tr(""), tr("Loads the 1D Transfer widget with the additional 3D Sift keypoints viewer"));
    m_qaChooseSiftViewer.setCheckable(true);
@@ -250,7 +243,6 @@ void CMainForm::createMenus()
 
    QMenu *currentTransferFunction = m_qmTransferFunctionMenu->addMenu(tr("Current Transfer Function widget"));
    currentTransferFunction->addAction(&m_qaChooseTransferWidget);
-   currentTransferFunction->addAction(&m_qaChooseBasicClustering);
    currentTransferFunction->addAction(&m_qaChooseSiftViewer);
    currentTransferFunction->addAction(&m_qaChooseMultiresolution);
    m_qaChooseWidget.setMenu(currentTransferFunction);
@@ -436,11 +428,6 @@ void CMainForm::openFileAction()
 void CMainForm::chooseTransferWidgetAction()
 {
    selectTransferWidget(VISc::twOneD);
-}
-
-void CMainForm::chooseBasicClusteringAction()
-{
-   selectTransferWidget(VISc::twBasicClusteringVisualizer);
 }
 
 void CMainForm::chooseSiftViewerAction()
@@ -835,7 +822,6 @@ void CMainForm::updateTransferWidgetContextMenuAction(VISc::ETransferWidgetOpera
 
 void CMainForm::selectTransferWidget(VISc::ETransferWidget tw)
 {	
-   m_qaChooseBasicClustering.setChecked(false);
    m_qaChooseTransferWidget.setChecked(false);
    m_qaChooseSiftViewer.setChecked(false);
    m_qaChooseMultiresolution.setChecked(false);
@@ -846,10 +832,6 @@ void CMainForm::selectTransferWidget(VISc::ETransferWidget tw)
    case VISc::twOneD:
       m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CTransferWidget()) );
       m_qaChooseTransferWidget.setChecked(true);
-      break;
-   case VISc::twBasicClusteringVisualizer:
-      m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CBasicClusteringVisualizer()) );
-      m_qaChooseBasicClustering.setChecked(true);
       break;
    case VISc::twSiftViewer:
       m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CSiftViewer()) );
