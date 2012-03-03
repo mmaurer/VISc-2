@@ -6,8 +6,7 @@ class CVolumeReaderBase
 public:
     CVolumeReaderBase(CVolume_ &volume) :
         m_volume(volume)
-    {
-    }
+    { }
 
     int load(QString fileName) = 0;
     int save(QString fileName) = 0;
