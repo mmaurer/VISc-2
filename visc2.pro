@@ -31,7 +31,6 @@ HEADERS += src/visc.h \
     src/algebra/CVector.h \
     src/algebra/CVirtualTrackball.h \
     src/algebra/MathUtils.h \
-    src/algs/CThreadWorker.h \
     src/interface/CAbout.h \
     src/interface/CBasicTransferWidget.h \
     src/interface/CMainForm.h \
@@ -44,15 +43,8 @@ HEADERS += src/visc.h \
     src/scene/COmniLightProperties.h \
     src/scene/CVolume.h \
     src/scene/CVolumeProperties.h \
-    src/algs/sift3d/CKeypoint.h \
-    src/algs/sift3d/CXMLKeypointReader.h \
-    src/interface/transferWidgets/CMultiresolution.h \
-    src/interface/transferWidgets/CSiftViewer.h \
     src/interface/transferWidgets/CTransferFunction.h \
     src/interface/transferWidgets/CTransferWidget.h \
-    src/interface/transferWidgets/Multiresolution/CCluster.h \
-    src/interface/transferWidgets/Multiresolution/CNode.h \
-    src/interface/transferWidgets/Multiresolution/CVoxel.h \
     src/scene/CSceneObject.h \
     src/scene/volumeReaders/CVolumeReaderBase.h
 SOURCES += src/main.cpp \
@@ -62,7 +54,6 @@ SOURCES += src/main.cpp \
     src/algebra/CVector.cpp \
     src/algebra/CVirtualTrackball.cpp \
     src/algebra/MathUtils.cpp \
-    src/algs/CThreadWorker.cpp \
     src/interface/CAbout.cpp \
     src/interface/CMainForm.cpp \
     src/interface/CMessageBox.cpp \
@@ -74,14 +65,8 @@ SOURCES += src/main.cpp \
     src/scene/COmniLightProperties.cpp \
     src/scene/CVolume.cpp \
     src/scene/CVolumeProperties.cpp \
-    src/algs/sift3d/CKeypoint.cpp \
-    src/algs/sift3d/CXMLKeypointReader.cpp \
-    src/interface/transferWidgets/CMultiresolution.cpp \
-    src/interface/transferWidgets/CSiftViewer.cpp \
     src/interface/transferWidgets/CTransferFunction.cpp \
     src/interface/transferWidgets/CTransferWidget.cpp \
-    src/interface/transferWidgets/Multiresolution/CCluster.cpp \
-    src/interface/transferWidgets/Multiresolution/CVoxel.cpp \
     src/scene/CSceneObject.cpp
 RESOURCES += src/visc.qrc
 QT += opengl

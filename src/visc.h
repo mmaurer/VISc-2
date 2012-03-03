@@ -45,7 +45,7 @@ namespace VISc
 	enum ETransferWidgetOperation {twoNone = 0x00, twoLoad = 0x01, twoSave = 0x02, twoZero = 0x04, twoReset = 0x08};
     Q_DECLARE_FLAGS(ETransferWidgetOperations, ETransferWidgetOperation)
 
-    enum ETransferWidget {twNone, twOneD, twSiftViewer, twMultiresolution};
+    enum ETransferWidget {twNone, twOneD};
 }
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(VISc::ETransferWidgetOperations);

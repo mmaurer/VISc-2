@@ -12,8 +12,6 @@
 #include "CScreenShot.h"
 #include "CMessageBox.h"
 #include "transferWidgets\CTransferWidget.h"
-#include "transferWidgets\CMultiresolution.h"
-#include "transferWidgets\CSiftViewer.h"
 
 CMainForm::CMainForm(QWidget *, const char *) :
 m_oglView(this),
@@ -42,8 +40,6 @@ m_qaWireFrame(this),
 m_qaViewProperties(this),
 m_qaSaveScreenShot(this),
 m_qaChooseTransferWidget(this), // Tranfer Functions
-m_qaChooseSiftViewer(this),
-m_qaChooseMultiresolution(this),
 m_qaChooseWidget(this),
 m_qaLoadTransferFunction(this),
 m_qaSaveTransferFunction(this),
@@ -122,16 +118,6 @@ void CMainForm::createActions()
    m_qaChooseTransferWidget.setCheckable(true);
    m_qaChooseTransferWidget.setChecked(true);
    connect(&m_qaChooseTransferWidget, SIGNAL(triggered()), this, SLOT(chooseTransferWidgetAction()));
-
-   createIndividualAction(m_qaChooseSiftViewer, QIcon(), tr("Sift Viewer"), tr(""), tr("Loads the 1D Transfer widget with the additional 3D Sift keypoints viewer"));
-   m_qaChooseSiftViewer.setCheckable(true);
-   m_qaChooseSiftViewer.setChecked(false);
-   connect(&m_qaChooseSiftViewer, SIGNAL(triggered()), this, SLOT(chooseSiftViewerAction()));
-
-   createIndividualAction(m_qaChooseMultiresolution, QIcon(), tr("Multiresolution"), tr(""), tr("Loads the Multiresolution Widget"));
-   m_qaChooseMultiresolution.setCheckable(true);
-   m_qaChooseMultiresolution.setChecked(false);
-   connect(&m_qaChooseMultiresolution, SIGNAL(triggered()), this, SLOT(chooseMultiresolutionAction()));
 
    createIndividualAction(m_qaChooseWidget, QIcon(":/resource/chooseTransferWidget.png"), tr("Current Transfer Widget"), tr(""), tr("Loads a different transfer widget into the software"));
 
@@ -243,8 +229,6 @@ void CMainForm::createMenus()
 
    QMenu *currentTransferFunction = m_qmTransferFunctionMenu->addMenu(tr("Current Transfer Function widget"));
    currentTransferFunction->addAction(&m_qaChooseTransferWidget);
-   currentTransferFunction->addAction(&m_qaChooseSiftViewer);
-   currentTransferFunction->addAction(&m_qaChooseMultiresolution);
    m_qaChooseWidget.setMenu(currentTransferFunction);
 
    m_qmTransferFunctionMenu->addSeparator();
@@ -428,16 +412,6 @@ void CMainForm::openFileAction()
 void CMainForm::chooseTransferWidgetAction()
 {
    selectTransferWidget(VISc::twOneD);
-}
-
-void CMainForm::chooseSiftViewerAction()
-{
-   selectTransferWidget(VISc::twSiftViewer);
-}
-
-void CMainForm::chooseMultiresolutionAction()
-{
-   selectTransferWidget(VISc::twMultiresolution);
 }
 
 void CMainForm::resetTransferFunctionAction()
@@ -823,8 +797,6 @@ void CMainForm::updateTransferWidgetContextMenuAction(VISc::ETransferWidgetOpera
 void CMainForm::selectTransferWidget(VISc::ETransferWidget tw)
 {	
    m_qaChooseTransferWidget.setChecked(false);
-   m_qaChooseSiftViewer.setChecked(false);
-   m_qaChooseMultiresolution.setChecked(false);
 
    m_basicTransferWidgetPtr->destroy();
    switch (tw)
@@ -832,14 +804,6 @@ void CMainForm::selectTransferWidget(VISc::ETransferWidget tw)
    case VISc::twOneD:
       m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CTransferWidget()) );
       m_qaChooseTransferWidget.setChecked(true);
-      break;
-   case VISc::twSiftViewer:
-      m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CSiftViewer()) );
-      m_qaChooseSiftViewer.setChecked(true);
-      break;
-   case VISc::twMultiresolution:
-      m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CMultiresolution()) );
-      m_qaChooseMultiresolution.setChecked(true);
       break;
    }
 
