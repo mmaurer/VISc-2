@@ -1,8 +1,6 @@
 TODO:
 
 . Add disclaimer to all files (except binary ones)
-. Remove clustering
-. Remove keypoints visualization
 . Fix pointer usage, mainly in GUI
 . Use QShaderProgram and stuff
 . Finish implementing the new CVolume_
