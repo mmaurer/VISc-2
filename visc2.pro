@@ -46,7 +46,6 @@ HEADERS += src/visc.h \
     src/scene/CVolumeProperties.h \
     src/algs/sift3d/CKeypoint.h \
     src/algs/sift3d/CXMLKeypointReader.h \
-    src/interface/transferWidgets/CBasicClusteringVisualizer.h \
     src/interface/transferWidgets/CMultiresolution.h \
     src/interface/transferWidgets/CSiftViewer.h \
     src/interface/transferWidgets/CTransferFunction.h \
@@ -77,7 +76,6 @@ SOURCES += src/main.cpp \
     src/scene/CVolumeProperties.cpp \
     src/algs/sift3d/CKeypoint.cpp \
     src/algs/sift3d/CXMLKeypointReader.cpp \
-    src/interface/transferWidgets/CBasicClusteringVisualizer.cpp \
     src/interface/transferWidgets/CMultiresolution.cpp \
     src/interface/transferWidgets/CSiftViewer.cpp \
     src/interface/transferWidgets/CTransferFunction.cpp \
