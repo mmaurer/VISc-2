@@ -23,10 +23,23 @@
 #include "COmniLightProperties.h"
 
 COmniLight::COmniLight() :
-CLight(VISc::ltOmnilight),
+   CLight(VISc::ltOmnilight),
    m_qcColor(QColor(255, 255, 255)),
    m_intensity(1.0)
 {
+}
+
+COmniLight::COmniLight(const COmniLight &other)
+{
+   if (this != &other)
+   {
+      m_qvPosition = other.m_qvPosition;
+      m_qcColor = other.m_qcColor;
+      m_intensity = other.m_intensity;
+
+      CLight::copyFrom(other);
+      CSceneObject::copyFrom(other);
+   }
 }
 
 void COmniLight::render()
@@ -46,7 +59,7 @@ void COmniLight::properties()
    properties.exec();
 }
 
-void COmniLight::getBoundingBox(double &mw, double &pw, double &mh, double &ph, double &md, double &pd)
+void COmniLight::getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd)
 {
    mw = m_qvPosition.getX() - m_radius;
    pw = m_qvPosition.getX() + m_radius;

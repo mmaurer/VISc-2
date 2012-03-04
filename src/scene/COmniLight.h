@@ -42,19 +42,34 @@ class COmniLight : public CLight
 {
 public:
    COmniLight();
+   COmniLight(const COmniLight &other);
    virtual ~COmniLight() { }
 
    virtual void render();
    virtual void properties();
-   virtual void getBoundingBox(double &mw, double &pw, double &mh, double &ph, double &md, double &pd);
+   virtual void getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd);
    virtual void setUpLight(int);
 
+   COmniLight &operator=(const COmniLight &other)
+   {
+      if (this != &other)
+      {
+         m_qvPosition = other.m_qvPosition;
+         m_qcColor = other.m_qcColor;
+         m_intensity = other.m_intensity;
+
+         CLight::copyFrom(other);
+         CSceneObject::copyFrom(other);
+      }
+      return *this;
+   }
+
    CVector getPosition() { return m_qvPosition; } const
-      void setPosition(CVector value) { m_qvPosition = value; }
+   void setPosition(CVector value) { m_qvPosition = value; }
    QColor getColor() { return m_qcColor; } const
-      void setColor(QColor value) { m_qcColor = value; }
+   void setColor(QColor value) { m_qcColor = value; }
    float getIntensity() { return m_intensity; } const
-      void setIntensity(float value) { m_intensity = value; }
+   void setIntensity(float value) { m_intensity = value; }
 
 protected:
    CVector m_qvPosition;

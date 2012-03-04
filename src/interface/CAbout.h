@@ -31,15 +31,15 @@
 
 class CAbout : public QSplashScreen
 {
-    Q_OBJECT
+   Q_OBJECT
 
 public:
-    CAbout(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0);
-    virtual ~CAbout(void) { }
+   CAbout(const QPixmap & pixmap = QPixmap(), Qt::WindowFlags f = 0);
+   virtual ~CAbout(void) { }
 
 protected:
-    virtual void keyPressEvent ( QKeyEvent * event );
-    virtual void mousePressEvent ( QMouseEvent * event );
+   virtual void keyPressEvent ( QKeyEvent * event );
+   virtual void mousePressEvent ( QMouseEvent * event );
 };
 
 #endif

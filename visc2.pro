@@ -60,7 +60,6 @@ SOURCES += src/main.cpp \
     src/interface/COpenGL.cpp \
     src/interface/COpenGLProperties.cpp \
     src/interface/CScreenShot.cpp \
-    src/scene/CLight.cpp \
     src/scene/COmniLight.cpp \
     src/scene/COmniLightProperties.cpp \
     src/scene/CVolume.cpp \

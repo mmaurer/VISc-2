@@ -41,7 +41,7 @@ namespace VISc
 	
 	enum ESceneItemType {sitVolume, sitLight, sitVolumeItem, sitLightItem};
 	
-	enum ELightType {ltSpotlight, ltOmnilight, ltDirectionallight};
+   enum ELightType {ltNone = 0, ltSpotlight, ltOmnilight, ltDirectionallight};
 	
 	enum EVolumeType {vtDirectVolumeRendering, vtTextureRendering};
 	

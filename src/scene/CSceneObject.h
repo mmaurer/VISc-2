@@ -22,26 +22,27 @@
 #ifndef CSCENEOBJECT_H
 #define CSCENEOBJECT_H
 
+#include <QObject>
 #include <QDateTime>
 
 #if defined(WIN32) && defined(_DEBUG)
-   #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
-   #define new DEBUG_NEW
+#define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )
+#define new DEBUG_NEW
 #endif
 
 class CSceneObject
 {
 public:
    CSceneObject() :
-   m_bEnabled(false),
-   m_qsName("Unnamed"),
-   m_qdtTimeStamp(QDateTime::currentDateTime())
+      m_bEnabled(false),
+      m_qsName("Unnamed"),
+      m_qdtTimeStamp(QDateTime::currentDateTime())
    { }
    virtual ~CSceneObject() { }
-   
-   virtual void render() { }
-   virtual void properties() { }
-   virtual void getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd) { mw = pw = mh = ph = md = pd = 0.0f; }
+
+   virtual void render() = 0;
+   virtual void properties() = 0;
+   virtual void getBoundingBox(float &mw, float &pw, float &mh, float &ph, float &md, float &pd) = 0;
 
    bool getIsEnabled() const { return m_bEnabled; }
    void setIsEnabled(bool value) { m_bEnabled = value; }
@@ -50,6 +51,15 @@ public:
    QDateTime getTimeStamp() const { return m_qdtTimeStamp; }
 
 protected:
+   void copyFrom(const CSceneObject &other)
+   {
+      if (this != &other)
+      {
+         m_bEnabled = other.m_bEnabled;
+         m_qsName = other.m_qsName + QObject::tr(" Copy");
+      }
+   }
+
    bool m_bEnabled;
    QString m_qsName;
    QDateTime m_qdtTimeStamp;

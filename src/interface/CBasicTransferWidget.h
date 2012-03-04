@@ -46,7 +46,7 @@ public:
       m_description(description),
       m_availableOperations(operations),
       m_allowableDockAreas(dockAreas)
-      { }
+   { }
    virtual ~CBasicTransferWidget() { }
 
    void setLists(QList< QSharedPointer<CVolume> > *volumeList) { m_volumeListPtr = volumeList; }
@@ -54,8 +54,8 @@ public:
    VISc::ETransferWidgetOperations getAvailableOperations() { return m_availableOperations; }
 
    // Non-virtual
-   QString getExtension() { return m_extension; }
-   QString getDescription() { return m_description; }
+   QString getExtension() const { return m_extension; }
+   QString getDescription() const { return m_description; }
 
    // Virtual
    virtual void setContextMenu(QMenu *menu) { m_contextMenuPtr = menu; }
