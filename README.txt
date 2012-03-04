@@ -1,6 +1,5 @@
 TODO:
 
-. Add disclaimer to all files (except binary ones)
 . Fix pointer usage, mainly in GUI
 . Use QShaderProgram and stuff
 . Finish implementing the new CVolume_
