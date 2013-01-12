@@ -69,3 +69,5 @@ SOURCES += src/main.cpp \
     src/scene/CSceneObject.cpp
 RESOURCES += src/visc.qrc
 QT += opengl
+
+unix:!macx: LIBS += -lGLEW

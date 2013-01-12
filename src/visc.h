@@ -22,8 +22,8 @@
 #ifndef VISC_H
 #define VISC_H
 
-#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-#include <GL/gl.h>
+//#include <GL/glew.h>
+//#include <GL/gl.h>
 
 #include <QtGui>
 #include <QFlags>
@@ -41,7 +41,7 @@ namespace VISc
 	
 	enum ESceneItemType {sitVolume, sitLight, sitVolumeItem, sitLightItem};
 	
-   enum ELightType {ltNone = 0, ltSpotlight, ltOmnilight, ltDirectionallight};
+    enum ELightType {ltNone = 0, ltSpotlight, ltOmnilight, ltDirectionallight};
 	
 	enum EVolumeType {vtDirectVolumeRendering, vtTextureRendering};
 	

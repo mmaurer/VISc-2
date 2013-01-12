@@ -97,7 +97,7 @@ private slots:
 
 private:
     void createActions();
-    void createIndividualAction(QAction &action, QIcon &icon, QString &text, QString &shortcut, QString &statusTip);
+    void createIndividualAction(QAction &action, const QIcon &icon, const QString &text, const QString &shortcut, const QString &statusTip);
     void createMenus();
     void createPanels();
     void createStatusBar();

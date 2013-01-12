@@ -22,8 +22,8 @@
 #ifndef COMNILIGHT_H
 #define COMNILIGHT_H
 
-#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-#include <GL/gl.h>
+//#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
+//#include <GL/gl.h>
 
 #include <QtGui>
 #include <QtOpenGL/QGLWidget>

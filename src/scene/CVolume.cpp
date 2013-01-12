@@ -20,6 +20,7 @@
 */
 
 #include "CVolume.h"
+#include "CVolumeProperties.h"
 
 #include <QSharedPointer>
 
@@ -37,7 +38,7 @@ name(QObject::tr("Blank"))
 }
 
 // Copy-constructor
-CVolume::CVolume (CVolume &volume)
+CVolume::CVolume (const CVolume &volume)
 {
    width    = volume.width;
    height   = volume.height;
@@ -570,7 +571,7 @@ m_numComponents(1),
 m_qcColor(0,0,0),
 m_position(0.0, 0.0, 0.0, 0.0)
 {
-   std::memset(m_aspectRatio, 0, sizeof(double) * 3);
+   memset(m_aspectRatio, 0, sizeof(double) * 3);
 }
 
 CVolume_::CVolume_(int width, int height, int depth, int numComponents) :
@@ -581,19 +582,19 @@ m_numComponents(numComponents),
 m_qcColor(0,0,0),
 m_position(0.0, 0.0, 0.0, 0.0)
 {
-   std::memset(m_aspectRatio, 0, sizeof(double) * 3);
+   memset(m_aspectRatio, 0, sizeof(double) * 3);
 
    // Initialize the voxels
    m_data.reset( new float[totalVoxels()] );
-   std::memset(m_data.data(), 0, sizeInBytes());
+   memset(m_data.data(), 0, sizeInBytes());
 }
 
-CVolume_::CVolume_ (CVolume_ &volume)
+CVolume_::CVolume_ (const CVolume_ &volume)
 {
    *this = volume;
 }
 
-CVolume_ & CVolume_::operator= (CVolume_ &volume)
+CVolume_ & CVolume_::operator= (const CVolume_ &volume)
 {
    if (&volume != this)
    {
@@ -608,11 +609,11 @@ CVolume_ & CVolume_::operator= (CVolume_ &volume)
       m_qdtTimeStamp = QDateTime::currentDateTime();
 
       // Copy the aspect ratio array
-      std::memcpy(m_aspectRatio, volume.m_aspectRatio, sizeof(double) * 3);
+      memcpy(m_aspectRatio, volume.m_aspectRatio, sizeof(double) * 3);
 
       // Copy the voxels
       m_data.reset( new float[totalVoxels()] );
-      std::memcpy(m_data.data(), volume.m_data.data(), sizeInBytes());
+      memcpy(m_data.data(), volume.m_data.data(), sizeInBytes());
    }
 
    return *this;

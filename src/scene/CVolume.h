@@ -25,13 +25,16 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-#include <GL/gl.h>
+#include "../visc.h"
+
+//#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
+//#include <GL/gl.h>
 
 // Qt classes
 #include <QString>
 #include <QFile>
 #include <QStack>
+#include <QtOpenGL>
 #include <QtOpenGL/QGLWidget>
 #include <QDebug>
 #include <QResizeEvent>
@@ -41,10 +44,11 @@
 #include <QLineEdit>
 #include <QVector4D>
 #include <QVector3D>
+#include <QGroupBox>
+#include <QDoubleSpinBox>
+#include <QSpinBox>
 
-#include "../visc.h"
 #include "../algebra/CVector.h"
-#include "CVolumeProperties.h"
 #include "CSceneObject.h"
 
 #if defined(WIN32) && defined(_DEBUG)
@@ -59,7 +63,7 @@ class CVolume
 	public:
 		CVolume();
 		CVolume (QString filename);
-		CVolume (CVolume &volume);
+        CVolume (const CVolume &volume);
 		CVolume (int, int, int, int);
       // Operator overloading
       CVolume &operator= (CVolume &volume);
@@ -82,16 +86,16 @@ class CVolume
 		QDateTime getTimestamp() { return this->timeStamp; }
 		void setTimestamp(QDateTime value) { this->timeStamp = value; }
 		
-		CVector getPosition() { return this->position; }
+        CVector getPosition() const { return this->position; }
 		void setPosition(CVector value) { this->position = value; }
 		void setPosition(double x, double y, double z) { this->position = CVector(x, y, z); }
 
 		void setAspectRatio(double x, double y, double z) { this->aspectRatio[VISc::dX] = x; this->aspectRatio[VISc::dY] = y; this->aspectRatio[VISc::dZ] = z; }
 		void setAspectRatio(VISc::EDirection dir, double value) { this->aspectRatio[dir] = value; }
-		double getAspectRatio(VISc::EDirection value) { return this->aspectRatio[value]; }
+        double getAspectRatio(VISc::EDirection value) const { return this->aspectRatio[value]; }
 
 		void setColor(QColor value) { this->color = value; }
-		QColor getColor() { return this->color; }
+        QColor getColor() const { return this->color; }
 
 		void zeroAll() { for (int i = 0; i < totalVoxels(); i++) data[i] = 0; };
 		void clear();
@@ -110,7 +114,7 @@ class CVolume
 		int getDepth() { return this->depth; };
 		int getMaxValue() { return this->maxvalue; };
 		int getNumComponents() { return this->c; };
-		int totalVoxels() { return (this->width * this->height * this->depth); };
+        int totalVoxels() const { return (this->width * this->height * this->depth); };
 		QImage getTexture(int slice, VISc::EDirection direction, GLubyte *);
 
 		CVolume resize(double sx, double sy, double sz, VISc::EInterpolation im);
@@ -137,8 +141,8 @@ class CVolume_ : public CSceneObject
 public:
    CVolume_();
    CVolume_(int width, int height, int depth, int numComponents);
-   CVolume_ (CVolume_ &volume);
-   CVolume_ &operator= (CVolume_ &volume);
+   CVolume_ (const CVolume_ &volume);
+   CVolume_ &operator= (const CVolume_ &volume);
    ~CVolume_();
 
    virtual void render();

@@ -29,7 +29,7 @@
 #include <QDoubleSpinBox>
 #include <QColorDialog>
 
-#include "CVolume.h"
+//#include "CVolume.h"
 
 class CVolume;
 

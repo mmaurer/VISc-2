@@ -20,11 +20,13 @@
 */
 
 #include "CVolumeProperties.h"
+#include "CVolume.h"
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QBoxLayout>
+#include <QLineEdit>
 
 CVolumeProperties::CVolumeProperties(CVolume *volume)
 {

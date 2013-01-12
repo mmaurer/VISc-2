@@ -19,6 +19,8 @@
   along with VISc 2.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <QtOpenGL>
+
 #include "CVirtualTrackball.h"
 
 CVirtualTrackball::CVirtualTrackball()

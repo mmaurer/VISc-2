@@ -45,12 +45,12 @@ class CMatrix : public QMatrix4x4
          CMatrix(const QMatrix4x4 &matrix)
          {
             QMatrix4x4 tmpMatrix = matrix.transposed();
-            std::memcpy(QMatrix4x4::data(), tmpMatrix.data(), sizeof(qreal) * 16);
+            memcpy(QMatrix4x4::data(), tmpMatrix.data(), sizeof(qreal) * 16);
          }
 
          CMatrix(double *GLMatrixPtr)
          {
-            std::memcpy(QMatrix4x4::data(), GLMatrixPtr, sizeof(qreal) * 16);
+            memcpy(QMatrix4x4::data(), GLMatrixPtr, sizeof(qreal) * 16);
             (*this) = transposed();
          }
 

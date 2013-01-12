@@ -19,6 +19,11 @@
   along with VISc 2.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//#include <GL/glut.h>
+#include <GL/glu.h>
+
+#include <QtOpenGL>
+
 #include "COmniLight.h"
 #include "COmniLightProperties.h"
 
@@ -48,8 +53,8 @@ void COmniLight::render()
    glColor4f(m_qcColor.redF(), m_qcColor.greenF(), m_qcColor.blueF(), 1.0);
    glTranslatef(m_qvPosition.getX(), m_qvPosition.getY(), m_qvPosition.getZ());
 
-   GLUquadric *myQuad = gluNewQuadric();
-   gluSphere(myQuad, m_radius * 1, 8, 8);
+   //GLUquadric *myQuad = gluNewQuadric();
+   //gluSphere(myQuad, m_radius * 1, 8, 8);
    glPopMatrix();
 }
 

@@ -32,7 +32,7 @@
 #include "CAbout.h"
 #include "CScreenShot.h"
 #include "CMessageBox.h"
-#include "transferWidgets\CTransferWidget.h"
+#include "transferWidgets/CTransferWidget.h"
 
 CMainForm::CMainForm(QWidget *, const char *) :
 m_oglView(this),
@@ -108,7 +108,7 @@ m_currentTransferWidget(VISc::twNone)
    updateSceneTree();
 }
 
-void CMainForm::createIndividualAction(QAction &action, QIcon &icon, QString &text, QString &shortcut, QString &statusTip)
+void CMainForm::createIndividualAction(QAction &action, const QIcon &icon, const QString &text, const QString &shortcut, const QString &statusTip)
 {
    action.setIcon(icon);
    action.setText(text);
@@ -823,8 +823,11 @@ void CMainForm::selectTransferWidget(VISc::ETransferWidget tw)
    switch (tw)
    {
    case VISc::twOneD:
-      m_basicTransferWidgetPtr.swap( QSharedPointer<CBasicTransferWidget>(new CTransferWidget()) );
-      m_qaChooseTransferWidget.setChecked(true);
+        {
+       QSharedPointer<CBasicTransferWidget> tmpPointer(new CTransferWidget());
+            m_basicTransferWidgetPtr.swap( tmpPointer );
+            m_qaChooseTransferWidget.setChecked(true);
+        }
       break;
    }
 

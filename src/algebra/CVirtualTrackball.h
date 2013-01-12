@@ -22,9 +22,8 @@
 #ifndef CVIRTUALTRACKBALL_H
 #define CVIRTUALTRACKBALL_H
 
-#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-//#include <GL/glut.h>     //--glut. need to install this to be able to show a window on the screen
-#include <GL/gl.h>
+//#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
+//#include <GL/gl.h>
 
 #include "CVector.h"
 #include "CQuaternion.h"

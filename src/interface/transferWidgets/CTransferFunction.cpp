@@ -152,7 +152,7 @@ int CTransferFunction::load(QString fileName)
 		char data[100];
 
 		tmpFile->readLine(data, 99);
-		sscanf_s(data, "%i %i %i %i\n", &r, &g, &b, &o);
+        sscanf(data, "%i %i %i %i\n", &r, &g, &b, &o);
 
 		this->transferr[i] = r;
 		this->transferg[i] = g;
@@ -176,7 +176,7 @@ int CTransferFunction::save(QString fileName)
 		char data[100];
 		int size;
 
-		size = sprintf_s(data, "%i\t%i\t%i\t%i\n", transferr[i], transferg[i], transferb[i], transfero[i]);
+        size = sprintf(data, "%i\t%i\t%i\t%i\n", transferr[i], transferg[i], transferb[i], transfero[i]);
 		tmpFile->write(data, size);
 	}
 	tmpFile->close();

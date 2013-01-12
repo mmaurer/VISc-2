@@ -22,11 +22,11 @@
 #ifndef COPENGL_H
 #define COPENGL_H
 
-#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-//#include <GL/glut.h>     //--glut. need to install this to be able to show a window on the screen
-#include <GL/gl.h>
+//#include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
+//#include <GL/gl.h>
 
 #include <QtOpenGL/QGLWidget>
+#include <QGLFunctions>
 #include <QDebug>
 #include <QResizeEvent>
 #include <QLineEdit>
@@ -51,7 +51,7 @@ void cgErrorCallback(void);
    #define new DEBUG_NEW
 #endif
 
-class COpenGL : public QGLWidget
+class COpenGL : public QGLWidget, protected QGLFunctions
 {
   Q_OBJECT
   
@@ -202,7 +202,7 @@ private:
 	void drawBoundingBox();
 	void drawZoomRectangle();
 	void renderAxis();
-	void COpenGL::unproject(CPoint *, CPoint *, GLdouble *, GLdouble *, GLint *);
+    void unproject(CPoint *, CPoint *, GLdouble *, GLdouble *, GLint *);
 
 	// Maximum value found in the volume data
 	int maxVolSize;

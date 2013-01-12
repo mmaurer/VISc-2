@@ -22,12 +22,12 @@
 #ifndef CMESSAGEBOX_H
 #define CMESSAGEBOX_H
 
+#include "../visc.h"
+
 #include <QtGui>
 #include <QToolBar>
 #include <QListWidget>
 #include <QAction>
-
-#include "../visc.h"
 
 #if defined(WIN32) && defined(_DEBUG)
    #define DEBUG_NEW new( _NORMAL_BLOCK, __FILE__, __LINE__ )

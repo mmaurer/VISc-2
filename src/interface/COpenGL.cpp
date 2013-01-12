@@ -22,20 +22,25 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <algorithm>
+#include <cmath>
+#include <typeinfo>
 
 #include <GL/glew.h>     //--Extension Library-->Always include this before  <gl.h>
-#include <GL/gl.h>
-
-#include <QtGui>
-#include <QtOpenGL/QtOpenGL>
-#include <QtDebug>
-#include <QGLShaderProgram>
-#include <QGLShader>
-#include <QGLFrameBufferObject>
-#include <QMenu>
+//#include <GL/gl.h>
+#include <GL/glut.h>
 
 #include "COpenGL.h"
 #include "CMessageBox.h"
+
+#include <QtGui>
+//#include <QtOpenGL/QtOpenGL>
+#include <QtDebug>
+#include <QGLShaderProgram>
+#include <QGLShader>
+#include <QGLFramebufferObject>
+#include <QMenu>
+
+#include "../visc.h"
 
 // Constructors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 COpenGL::COpenGL(QWidget *parent) : QGLWidget(parent)
@@ -360,7 +365,7 @@ GLint COpenGL::getUniLoc(GLuint program, const GLchar *name)
 {
     GLint loc;
 
-    loc = glGetUniformLocation(program, name);
+    loc = glGetUniformLocationARB(program, name);
 
     if (loc == -1)
 		CMessageBox::getInstance()->writeMessage(tr("No such uniform named ") + name, VISc::mtError);
@@ -377,7 +382,7 @@ void COpenGL::printShaderInfoLog(GLuint shader)
 	GLchar *infoLog;
 
 	printOpenGLError();  // Check for OpenGL errors
-	glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infologLength);
+    glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infologLength);
 	printOpenGLError();  // Check for OpenGL errors
 
    try
@@ -522,7 +527,8 @@ int COpenGL::readShaderSource(QString fileName, GLchar **vertexShader, GLchar **
 
     if ((vSize == -1) || (fSize == -1))
     {
-        printf("Cannot determine size of the shader %s\n", fileName);
+        CMessageBox::getInstance()->writeMessage(tr("Cannot determine size of the shader."), VISc::mtError);
+        //printf("Cannot determine size of the shader %s\n", fileName);
         return 0;
     }
 
@@ -535,14 +541,17 @@ int COpenGL::readShaderSource(QString fileName, GLchar **vertexShader, GLchar **
 	if (vSize > 0)
 		if (!readShader(fileName, VISc::pfVertex, *vertexShader, vSize))
 		{
-				printf("Cannot read the file %s.vert\n", fileName);
+
+            CMessageBox::getInstance()->writeMessage(tr("Cannot read the vertex shader."), VISc::mtError);
+                //printf("Cannot read the file %s.vert\n", fileName);
 				return 0;
 		}
 
 	if (fSize > 0)
 		if (!readShader(fileName, VISc::pfFragment, *fragmentShader, fSize))
 		{
-				printf("Cannot read the file %s.frag\n", fileName);
+            CMessageBox::getInstance()->writeMessage(tr("Cannot read the fragment shader."), VISc::mtError);
+                //printf("Cannot read the file %s.frag\n", fileName);
 				return 0;
 		}
 
@@ -552,6 +561,8 @@ int COpenGL::readShaderSource(QString fileName, GLchar **vertexShader, GLchar **
 
 int COpenGL::installShaders(const GLchar *vertexProgram, const GLchar *fragmentProgram, VISc::ERenderMode mode)
 {
+    return 0;
+
     GLuint vertexShader, fragmentShader;   // handles to objects
     GLint  vertCompiled = 1, fragCompiled = 1;    // status values
     GLint  linked;
@@ -637,7 +648,8 @@ int COpenGL::installShaders(const GLchar *vertexProgram, const GLchar *fragmentP
     glErr = glGetError();
     while (glErr != GL_NO_ERROR)
     {
-        printf("glError in file %s @ line %d: %s\n", file, line, gluErrorString(glErr));
+        //printf("glError in file %s @ line %d: %s\n", file, line, gluErrorString(glErr));
+        CMessageBox::getInstance()->writeMessage(tr("Error in file"), VISc::mtError);
         retCode = 1;
         glErr = glGetError();
     }
@@ -1369,6 +1381,18 @@ void COpenGL::perspectiveGL( GLdouble fovY, GLdouble aspect, GLdouble zNear, GLd
 	glFrustum( -fW, fW, -fH, fH, zNear, zFar );
 }
 
+// Temporary function. Remove...
+double hypot(double x,double y)
+{
+    double t;
+    x = abs(x);
+    y = abs(y);
+    t = std::min(x,y);
+    x = std::max(x,y);
+    t = t/x;
+    return x*sqrt(1+t*t);
+}
+
 void COpenGL::lookAtGL(const GLdouble p_EyeX, const GLdouble p_EyeY, const GLdouble p_EyeZ, const GLdouble p_CenterX, const GLdouble p_CenterY, const GLdouble p_CenterZ)
 {
 	GLdouble l_X = p_EyeX - p_CenterX;
@@ -1391,12 +1415,12 @@ void COpenGL::lookAtGL(const GLdouble p_EyeX, const GLdouble p_EyeY, const GLdou
 	GLdouble l_rX = 0.0f;
 	GLdouble l_rY = 0.0f;
   
-    GLdouble l_hA = (l_X == 0.0f) ? l_Z : _hypot(l_X, l_Z);
+    GLdouble l_hA = (l_X == 0.0f) ? l_Z : hypot(l_X, l_Z);
 	GLdouble l_hB;
 	if(l_Z == 0.0f)
-        l_hB = _hypot(l_X, l_Y);
+        l_hB = hypot(l_X, l_Y);
 	else
-        l_hB = (l_Y == 0.0f) ? l_hA : _hypot(l_Y, l_hA);
+        l_hB = (l_Y == 0.0f) ? l_hA : hypot(l_Y, l_hA);
 
 	l_rX = asin(l_Y / l_hB) * (180 / M_PI);
 	l_rY = asin(l_X / l_hA) * (180 / M_PI);
@@ -1451,7 +1475,7 @@ void COpenGL::drawVolume(int index)
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glAlphaFunc(GL_GREATER, threshold);
 
-			glUseProgram(programTex);
+            glUseProgram(programTex);
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 			//glEnable(GL_TEXTURE_3D);	
 			int volumeLocation = glGetUniformLocationARB(programTex, "SamplerDataVolume");
@@ -1713,8 +1737,8 @@ void COpenGL::setVolumeTexture(int index)
 	float ds = d / (float) volume->getDepth();
 
 	//CVolume volumeData(w, h, d, 4);
-   CVolume sourceData = volume->resize(ws, hs, ds, VISc::iTrilinear);
-	CVolume volumeData = CVolume(w, h, d, 4);
+    CVolume sourceData(volume->resize(ws, hs, ds, VISc::iTrilinear));
+    CVolume volumeData(w, h, d, 4);
 
 	//CVolume volumeData(volume->getWidth(), volume->getHeight(), volume->getDepth(), 4);
 

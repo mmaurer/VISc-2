@@ -23,6 +23,7 @@
 #define ALGEBRA_H
 
 #include <math.h>
+#include <complex>
 
 namespace VISc
 {
@@ -56,7 +57,7 @@ namespace VISc
 
       inline double ClampToZero(double value)
       {
-         if (abs(value) < EPSILON)
+         if (std::abs(value) < EPSILON)
             return 0.0;
 
          return value;
