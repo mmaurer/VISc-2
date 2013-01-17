@@ -43,7 +43,8 @@
 #include "../visc.h"
 
 // Constructors =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-COpenGL::COpenGL(QWidget *parent) : QGLWidget(parent)
+COpenGL::COpenGL(QWidget *parent) : QGLWidget(parent),
+    m_shaderProgram(this)
 {
 	projectionMode = VISc::pParallel;
 	renderMode = VISc::rmWireframe;
@@ -211,6 +212,8 @@ void COpenGL::resizeGL(int, int)
 
 void COpenGL::initializeGL()
 {
+    initializeGLFunctions();
+
 	glewInit();
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -236,27 +239,44 @@ void COpenGL::initializeGL()
    //else
    //   CMessageBox::getInstance()->writeMessage( "Fragment shader file not found.", VISc::mtWarning );
 
+    if (!m_shaderProgram.addShaderFromSourceFile(QGLShader::Vertex, tr("shaders/tex.vert"))) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Vertex shader loaded successfully."), VISc::mtInformation);
+    }
+
+    if (!m_shaderProgram.addShaderFromSourceFile(QGLShader::Fragment, tr("shaders/tex.frag"))) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Fragment shader loaded successfully."), VISc::mtInformation);
+    }
+
+    if (!m_shaderProgram.link()) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Shaders linked successfully."), VISc::mtInformation);
+    }
 
 	// OpenGL Extensions
-	GLchar *FragmentShaderSourceDvrVertex, *FragmentShaderSourceDvrFragment;
-	GLchar *FragmentShaderSourceTexVertex, *FragmentShaderSourceTexFragment;
-	readShaderSource("dvr", &FragmentShaderSourceDvrVertex, &FragmentShaderSourceDvrFragment);
-	readShaderSource("tex", &FragmentShaderSourceTexVertex, &FragmentShaderSourceTexFragment);
-	int success = 0;
+//	GLchar *FragmentShaderSourceDvrVertex, *FragmentShaderSourceDvrFragment;
+//	GLchar *FragmentShaderSourceTexVertex, *FragmentShaderSourceTexFragment;
+//	readShaderSource("dvr", &FragmentShaderSourceDvrVertex, &FragmentShaderSourceDvrFragment);
+//	readShaderSource("tex", &FragmentShaderSourceTexVertex, &FragmentShaderSourceTexFragment);
+//	int success = 0;
 
-	success = installShaders(FragmentShaderSourceDvrVertex, FragmentShaderSourceDvrFragment, VISc::rmUnrealTime);
-	if (success == 0)
-	{
-		CMessageBox::getInstance()->writeMessage(tr("Error installing shaders for Direct Volume Rendering"), VISc::mtError);
-		//exit(1);
-	}
+//	success = installShaders(FragmentShaderSourceDvrVertex, FragmentShaderSourceDvrFragment, VISc::rmUnrealTime);
+//	if (success == 0)
+//	{
+//		CMessageBox::getInstance()->writeMessage(tr("Error installing shaders for Direct Volume Rendering"), VISc::mtError);
+//		//exit(1);
+//	}
 
-	success = installShaders(FragmentShaderSourceTexVertex, FragmentShaderSourceTexFragment, VISc::rmRealTime);
-	if (success == 0)
-	{
-		CMessageBox::getInstance()->writeMessage(tr("Error installing shaders for 2D Texture Rendering"), VISc::mtError);
-		//exit(1);
-	}
+//	success = installShaders(FragmentShaderSourceTexVertex, FragmentShaderSourceTexFragment, VISc::rmRealTime);
+//	if (success == 0)
+//	{
+//		CMessageBox::getInstance()->writeMessage(tr("Error installing shaders for 2D Texture Rendering"), VISc::mtError);
+//		//exit(1);
+//	}
 }
 
 void COpenGL::setTransferFunction(const QImage &texture)
@@ -561,78 +581,95 @@ int COpenGL::readShaderSource(QString fileName, GLchar **vertexShader, GLchar **
 
 int COpenGL::installShaders(const GLchar *vertexProgram, const GLchar *fragmentProgram, VISc::ERenderMode mode)
 {
-    return 0;
+//    return 0;
 
-    GLuint vertexShader, fragmentShader;   // handles to objects
-    GLint  vertCompiled = 1, fragCompiled = 1;    // status values
-    GLint  linked;
+//    GLuint vertexShader, fragmentShader;   // handles to objects
+//    GLint  vertCompiled = 1, fragCompiled = 1;    // status values
+//    GLint  linked;
 
-    // Create a vertex shader object and a fragment shader object
-    vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+//    // Create a vertex shader object and a fragment shader object
+//    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+//    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-    // Load source code strings into shaders
-    glShaderSource(vertexShader, 1, &vertexProgram, NULL);
-    glShaderSource(fragmentShader, 1, &fragmentProgram, NULL);
+//    // Load source code strings into shaders
+//    glShaderSource(vertexShader, 1, &vertexProgram, NULL);
+//    glShaderSource(fragmentShader, 1, &fragmentProgram, NULL);
 
-    // Compile the vertex shader, and print out the compiler log file.
-	glCompileShader(vertexShader);
-    printOpenGLError();  // Check for OpenGL errors
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vertCompiled);
-    printShaderInfoLog(vertexShader);
+//    // Compile the vertex shader, and print out the compiler log file.
+//	glCompileShader(vertexShader);
+//    printOpenGLError();  // Check for OpenGL errors
+//    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &vertCompiled);
+//    printShaderInfoLog(vertexShader);
 
-    // Compile the vertex shader, and print out the compiler log file.
-    glCompileShader(fragmentShader);
-    printOpenGLError();  // Check for OpenGL errors
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragCompiled);
-    printShaderInfoLog(fragmentShader);
+//    // Compile the vertex shader, and print out the compiler log file.
+//    glCompileShader(fragmentShader);
+//    printOpenGLError();  // Check for OpenGL errors
+//    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &fragCompiled);
+//    printShaderInfoLog(fragmentShader);
 
-    if (!vertCompiled || !fragCompiled)
-        return 0;
+//    if (!vertCompiled || !fragCompiled)
+//        return 0;
 
-    // Create a program object and attach the two compiled shaders
-	if (mode == VISc::rmUnrealTime)
-	{
-		programDvr = glCreateProgram();
-		glAttachShader(programDvr, fragmentShader);
+//    // Create a program object and attach the two compiled shaders
+//	if (mode == VISc::rmUnrealTime)
+//	{
+//		programDvr = glCreateProgram();
+//		glAttachShader(programDvr, fragmentShader);
 
-		glLinkProgram(programDvr);
-		printOpenGLError();  // Check for OpenGL errors
-		glGetProgramiv(programDvr, GL_LINK_STATUS, &linked);
-		printProgramInfoLog(programDvr);
+//		glLinkProgram(programDvr);
+//		printOpenGLError();  // Check for OpenGL errors
+//		glGetProgramiv(programDvr, GL_LINK_STATUS, &linked);
+//		printProgramInfoLog(programDvr);
 
-		if (!linked)
-	        return 0;
-	} else if (mode == VISc::rmRealTime)
-	{
-		// Dvr2
-		programTex = glCreateProgram();
-		glAttachShader(programTex, fragmentShader);
-		glAttachShader(programTex, vertexShader);
+//		if (!linked)
+//	        return 0;
+//	} else if (mode == VISc::rmRealTime)
+//	{
+//		// Dvr2
+//		programTex = glCreateProgram();
+//		glAttachShader(programTex, fragmentShader);
+//		glAttachShader(programTex, vertexShader);
 
-		// Link the program object and print out the info log
+//		// Link the program object and print out the info log
 
-		glLinkProgram(programTex);
-		printOpenGLError();  // Check for OpenGL errors
-		glGetProgramiv(programTex, GL_LINK_STATUS, &linked);
-		printProgramInfoLog(programTex);
+//		glLinkProgram(programTex);
+//		printOpenGLError();  // Check for OpenGL errors
+//		glGetProgramiv(programTex, GL_LINK_STATUS, &linked);
+//		printProgramInfoLog(programTex);
 
-		if (!linked)
-			return 0;
-	}
+//		if (!linked)
+//			return 0;
+//	}
+    QString shaderType(tr("tex"));
+    switch (mode)
+    {
+    case VISc::rmUnrealTime:
+        shaderType = tr("dvr");
+    }
 
-    // Install program object as part of current state
-    //glUseProgram(programDvr);
+    if (!m_shaderProgram.addShaderFromSourceFile(QGLShader::Vertex, tr("shaders/") + shaderType + tr(".vert"))) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Vertex shader loaded successfully."), VISc::mtInformation);
+    }
 
-    // Set up initial uniform values
-		//glUniform4f(getUniLoc(programDvr, "scaleTex"), (volumeData.getWidth()), 
-		//	                                             (volumeData.getHeight()), 
-		//																							 (volumeData.getDepth()), 1.0);
-  //  glUniform3f(getUniLoc(programDvr, "camera"), 0.0, 0.0, -50);
-  //  glUniform3f(getUniLoc(programDvr, "volExtentMin"), 0.0, 0.0, 0.0);
-		//glUniform3f(glGetUniformLocation(programDvr, "volExtentMin"), 0.0, 0.0, 0.0); 
-		//glUniform3f(getUniLoc(programDvr, "volExtentMax"), volumeData.getWidth(), volumeData.getHeight(), volumeData.getDepth());
-  //  glUniform1f(getUniLoc(programDvr, "stepsize"), 1.0);
+    if (!m_shaderProgram.addShaderFromSourceFile(QGLShader::Fragment, tr("shaders/") + shaderType + tr(".frag"))) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Fragment shader loaded successfully."), VISc::mtInformation);
+    }
+
+    if (!m_shaderProgram.link()) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Shaders linked successfully."), VISc::mtInformation);
+    }
+    if (!m_shaderProgram.bind()) {
+        CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+    } else {
+        CMessageBox::getInstance()->writeMessage(tr("Shaders bound successfully."), VISc::mtInformation);
+    }
+
 
     return 1;
 }
@@ -1475,20 +1512,27 @@ void COpenGL::drawVolume(int index)
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 			glAlphaFunc(GL_GREATER, threshold);
 
-            glUseProgram(programTex);
+            //glUseProgram(programTex);
+            if (!m_shaderProgram.bind()) {
+                CMessageBox::getInstance()->writeMessage(m_shaderProgram.log(), VISc::mtError);
+                return;
+            }
+
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 			//glEnable(GL_TEXTURE_3D);	
-			int volumeLocation = glGetUniformLocationARB(programTex, "SamplerDataVolume");
+//			int volumeLocation = glGetUniformLocationARB(programTex, "SamplerDataVolume");
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_3D, volumeTexture[index]);
-			glUniform1iARB(volumeLocation, 0);
+//            glUniform1iARB(volumeLocation, 0);
+            m_shaderProgram.setUniformValue("SamplerDataVolume", static_cast<GLuint>(0));
 			//printOglError(__FILE__, __LINE__);
 
 			// Transfer texture
-			int transferLocation = glGetUniformLocationARB(programTex, "SamplerTransferFunction");
+//			int transferLocation = glGetUniformLocationARB(programTex, "SamplerTransferFunction");
 			glActiveTexture(GL_TEXTURE1);
 			glBindTexture(GL_TEXTURE_1D, transferTexture);
-			glUniform1iARB(transferLocation, 1);
+//			glUniform1iARB(transferLocation, 1);
+            m_shaderProgram.setUniformValue("SamplerTransferFunction", static_cast<GLuint>(1));
 			//printOglError(__FILE__, __LINE__);
 
 			// Ligths
@@ -1498,17 +1542,20 @@ void COpenGL::drawVolume(int index)
 				(*tmpLightList).at(i)->setUpLight(i);
 				glEnable(GL_LIGHT0 + i);
 			}
-			int numberLights = glGetUniformLocationARB(programTex, "lights");
-			glUniform1iARB(numberLights, tmpLightList->count());
+//			int numberLights = glGetUniformLocationARB(programTex, "lights");
+//			glUniform1iARB(numberLights, tmpLightList->count());
+            m_shaderProgram.setUniformValue("lights", static_cast<GLuint>(tmpLightList->count()));
 			//printOglError(__FILE__, __LINE__);
 
 			// VolExtentMax
-			int volExtentMax = glGetUniformLocationARB(programTex, "volExtentMax");
-			glUniform3fARB(volExtentMax, volumeData->getWidth(), volumeData->getHeight(), volumeData->getDepth());
+//			int volExtentMax = glGetUniformLocationARB(programTex, "volExtentMax");
+//			glUniform3fARB(volExtentMax, volumeData->getWidth(), volumeData->getHeight(), volumeData->getDepth());
+            m_shaderProgram.setUniformValue("volExtentMax", static_cast<GLfloat>(volumeData->getWidth()), static_cast<GLfloat>(volumeData->getHeight()), static_cast<GLfloat>(volumeData->getDepth()));
 
 			// View Vector
-			int V = glGetUniformLocationARB(programTex, "V");
-			glUniform3fARB(V, viewVectorVSpace.getX(), viewVectorVSpace.getY(), viewVectorVSpace.getZ());
+//			int V = glGetUniformLocationARB(programTex, "V");
+//			glUniform3fARB(V, viewVectorVSpace.getX(), viewVectorVSpace.getY(), viewVectorVSpace.getZ());
+            m_shaderProgram.setUniformValue("V", viewVectorVSpace.getX(), viewVectorVSpace.getY(), viewVectorVSpace.getZ());
 			// =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 			if (volumeData->getDepth() <= 1)
@@ -1550,7 +1597,8 @@ void COpenGL::drawVolume(int index)
                   break;
 				}
 			}
-			glUseProgram(0);
+//			glUseProgram(0);
+            m_shaderProgram.release();
 
 			if (redrawScene)
 				redrawScene = !redrawScene;

@@ -208,6 +208,7 @@ private:
 	int maxVolSize;
 	
 	// Shader -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+    QGLShaderProgram m_shaderProgram;
 	GLuint ProgramObject;
 	GLuint VertexShaderObject;
 	GLuint FragmentShaderObject;
